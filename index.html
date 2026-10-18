@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Suivi Bluesky</title><link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGNsYXNzPSJibHVlc2t5LWxvZ28iIHZpZXdCb3g9IjAgMCA2MDAgNTMwIiBhcmlhLWhpZGRlbj0idHJ1ZSIgZm9jdXNhYmxlPSJmYWxzZSI+PHBhdGggZmlsbD0iI2Y5NzMxNiIgZD0iTTEzNS43MiA0NC4wM0MyMDIuMjIgOTMuOTUgMjczLjc1IDE5NS4xNyAzMDAgMjQ5LjVjMjYuMjUtNTQuMzMgOTcuNzgtMTU1LjU1IDE2NC4yOC0yMDUuNDdDNTEyLjI2IDguMDEgNTkwLTE5Ljg2IDU5MCA2OC44MWMwIDE3LjcxLTEwLjE1IDE0OC43OS0xNi4xMSAxNzAuMDctMjAuNyA3My45NS05Ni4xNCA5Mi44MS0xNjMuMjQgODEuNCAxMTcuMjkgMTkuOTUgMTQ3LjEzIDg2LjAyIDgyLjY5IDE1Mi4wOS0xMjIuMzkgMTI1LjQ5LTE3NS45MS0zMS40OS0xODkuNjQtNzEuNzEtMi41MS03LjM3LTMuNjktMTAuODEtMy43LTcuODktLjAxLTIuOTItMS4xOS41Mi0zLjcgNy44OS0xMy43MyA0MC4yMi02Ny4yNSAxOTcuMi0xODkuNjQgNzEuNzEtNjQuNDQtNjYuMDctMzQuNi0xMzIuMTQgODIuNjktMTUyLjA5LTY3LjEgMTEuNDEtMTQyLjU0LTcuNDUtMTYzLjI0LTgxLjRDMjAuMTUgMjE3LjYgMTAgODYuNTIgMTAgNjguODEgMTAtMTkuODYgODcuNzQgOC4wMSAxMzUuNzIgNDQuMDNaIi8+PC9zdmc+">
+<html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Suivi Bluesky</title><meta name="app-version" content="6dba3bcdb4ec3e45"><link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGNsYXNzPSJibHVlc2t5LWxvZ28iIHZpZXdCb3g9IjAgMCA2MDAgNTMwIiBhcmlhLWhpZGRlbj0idHJ1ZSIgZm9jdXNhYmxlPSJmYWxzZSI+PHBhdGggZmlsbD0iI2Y5NzMxNiIgZD0iTTEzNS43MiA0NC4wM0MyMDIuMjIgOTMuOTUgMjczLjc1IDE5NS4xNyAzMDAgMjQ5LjVjMjYuMjUtNTQuMzMgOTcuNzgtMTU1LjU1IDE2NC4yOC0yMDUuNDdDNTEyLjI2IDguMDEgNTkwLTE5Ljg2IDU5MCA2OC44MWMwIDE3LjcxLTEwLjE1IDE0OC43OS0xNi4xMSAxNzAuMDctMjAuNyA3My45NS05Ni4xNCA5Mi44MS0xNjMuMjQgODEuNCAxMTcuMjkgMTkuOTUgMTQ3LjEzIDg2LjAyIDgyLjY5IDE1Mi4wOS0xMjIuMzkgMTI1LjQ5LTE3NS45MS0zMS40OS0xODkuNjQtNzEuNzEtMi41MS03LjM3LTMuNjktMTAuODEtMy43LTcuODktLjAxLTIuOTItMS4xOS41Mi0zLjcgNy44OS0xMy43MyA0MC4yMi02Ny4yNSAxOTcuMi0xODkuNjQgNzEuNzEtNjQuNDQtNjYuMDctMzQuNi0xMzIuMTQgODIuNjktMTUyLjA5LTY3LjEgMTEuNDEtMTQyLjU0LTcuNDUtMTYzLjI0LTgxLjRDMjAuMTUgMjE3LjYgMTAgODYuNTIgMTAgNjguODEgMTAtMTkuODYgODcuNzQgOC4wMSAxMzUuNzIgNDQuMDNaIi8+PC9zdmc+">
 <style>
 :root { font-family: Inter,system-ui,sans-serif; color: #183247; background: #faf7f0; }
 * { box-sizing: border-box; }
@@ -805,6 +805,30 @@ async function refresh(){
 }
 document.addEventListener('error',event=>{if(event.target.matches?.('.user-avatar'))event.target.hidden=true;},true);
 document.addEventListener('click',event=>{if(event.target.closest('[data-retry-refresh]')&&!document.querySelector('#refresh').disabled){clearDataCache();refresh();}});
-document.querySelector('#refresh').addEventListener('click',()=>{clearDataCache();return refresh();});refresh();
+document.querySelector('#refresh').addEventListener('click',async()=>{if(await checkAppVersion())return;clearDataCache();return refresh();});refresh();
+
+
+// The Refresh button checks deployments without touching saved accounts.
+const APP_VERSION=document.querySelector('meta[name="app-version"]').content;
+let versionCheckInFlight=null;
+async function checkAppVersion(){
+ if(!/^https?:$/.test(location.protocol)||document.hidden)return false;
+ if(versionCheckInFlight)return versionCheckInFlight;
+ versionCheckInFlight=(async()=>{
+  try{
+   const url=new URL(location.href);url.hash='';url.searchParams.delete('_v');url.searchParams.set('_check',Date.now().toString());
+   const response=await fetch(url,{cache:'no-store',signal:AbortSignal.timeout(10000)});
+   if(!response.ok)return false;
+   const remote=new DOMParser().parseFromString(await response.text(),'text/html');
+   const version=remote.querySelector('meta[name="app-version"]')?.content;
+   if(!version||version===APP_VERSION||!/^[a-f0-9]{16}$/.test(version))return false;
+   const target=new URL(location.href);target.searchParams.delete('_check');target.searchParams.set('_v',version);
+   // Avoid a reload loop if a deployment temporarily serves inconsistent files.
+   if(target.href===location.href)return false;
+   location.replace(target.href);return true;
+  }catch{return false;}
+ })();
+ try{return await versionCheckInFlight;}finally{versionCheckInFlight=null;}
+}
 
 </script></html>
