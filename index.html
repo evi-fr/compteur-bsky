@@ -1,0 +1,746 @@
+<!doctype html>
+<html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Suivi Bluesky</title><link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGNsYXNzPSJibHVlc2t5LWxvZ28iIHZpZXdCb3g9IjAgMCA2MDAgNTMwIiBhcmlhLWhpZGRlbj0idHJ1ZSIgZm9jdXNhYmxlPSJmYWxzZSI+PHBhdGggZmlsbD0iI2Y5NzMxNiIgZD0iTTEzNS43MiA0NC4wM0MyMDIuMjIgOTMuOTUgMjczLjc1IDE5NS4xNyAzMDAgMjQ5LjVjMjYuMjUtNTQuMzMgOTcuNzgtMTU1LjU1IDE2NC4yOC0yMDUuNDdDNTEyLjI2IDguMDEgNTkwLTE5Ljg2IDU5MCA2OC44MWMwIDE3LjcxLTEwLjE1IDE0OC43OS0xNi4xMSAxNzAuMDctMjAuNyA3My45NS05Ni4xNCA5Mi44MS0xNjMuMjQgODEuNCAxMTcuMjkgMTkuOTUgMTQ3LjEzIDg2LjAyIDgyLjY5IDE1Mi4wOS0xMjIuMzkgMTI1LjQ5LTE3NS45MS0zMS40OS0xODkuNjQtNzEuNzEtMi41MS03LjM3LTMuNjktMTAuODEtMy43LTcuODktLjAxLTIuOTItMS4xOS41Mi0zLjcgNy44OS0xMy43MyA0MC4yMi02Ny4yNSAxOTcuMi0xODkuNjQgNzEuNzEtNjQuNDQtNjYuMDctMzQuNi0xMzIuMTQgODIuNjktMTUyLjA5LTY3LjEgMTEuNDEtMTQyLjU0LTcuNDUtMTYzLjI0LTgxLjRDMjAuMTUgMjE3LjYgMTAgODYuNTIgMTAgNjguODEgMTAtMTkuODYgODcuNzQgOC4wMSAxMzUuNzIgNDQuMDNaIi8+PC9zdmc+">
+<style>
+:root { font-family: Inter,system-ui,sans-serif; color: #183247; background: #faf7f0; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+main { max-width: 1100px; margin: auto; padding: 48px 24px; }
+header { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+p { line-height: 1.6; color: #607283; }
+.eyebrow { font-weight: 800; }
+button { background: #163f55; color: white; border: 0; border-radius: 12px; padding: 14px 20px; font: inherit; cursor: pointer; }
+button:disabled { opacity: .5; cursor: wait; }
+.account { background: white; padding: 28px; border: 1px solid #dce5eb; border-radius: 22px; margin-top: 30px; box-shadow: 0 12px 40px #18324706; }
+h2 { margin: 0; font-size: 24px; }
+a { color: #087ea4; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.handle { font-size: 14px; }
+.stats { display: flex; gap: 40px; margin: 25px 0; }
+.value { font-size: 38px; font-weight: 750; letter-spacing: -1px; }
+.label { font-size: 12px; color: #607283; }
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+h3 { font-size: 15px; margin: 15px 0; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th,td { text-align: left; padding: 10px 6px; border-bottom: 1px solid #edf1f4; }
+th { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #607283; }
+td:not(:first-child),th:not(:first-child) { text-align: right; }
+.bar { display: inline-block; height: 7px; background: #32a8bf; border-radius: 5px; vertical-align: middle; margin-left: 12px; }
+.status { font-size: 13px; color: #607283; margin-top: 18px; }
+.error { color: #a43232; }
+.note { font-size: 12px; }
+.ranknum { color: #90a0ad; margin-right: 12px; }
+footer { margin-top: 28px; }
+details { margin-top: 12px; font-size: 13px; color: #607283; }
+summary { cursor: pointer; }
+@media(max-width:700px) {
+  main { padding: 24px 15px; }
+  header { align-items: flex-start; }
+  .columns { grid-template-columns: 1fr; gap: 18px; }
+  .account { padding: 20px; }
+  .stats { gap: 25px; }
+  button { font-size: 13px; padding: 12px; }
+  h2 { font-size: 21px; }
+}
+.manage-form { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
+.manage-form input { flex: 1; min-width: 200px; padding: 13px; border: 1px solid #cbd8e0; border-radius: 10px; font: inherit; }
+.user-list { list-style: none; padding: 0; }
+.user-list li { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 0; border-bottom: 1px solid #edf1f4; overflow-wrap: anywhere; }
+.remove-user { background: #edf2f5; color: #183247; padding: 8px 12px; font-size: 13px; }
+fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+.weekend { color: #c0392b; font-weight: 600; }
+#primary-today .stats { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; text-align: center; }
+.top-posts { margin-top: 30px; padding-top: 18px; border-top: 1px solid #edf1f4; }
+.post-list { padding-left: 22px; margin: 0; }
+.post-list li { padding: 14px 0; border-bottom: 1px solid #edf1f4; }
+.post-list a { white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.5; font-size: 14px; }
+.account-highlights { margin-top: 28px; border-top: 1px solid #dce5eb; padding-top: 18px; }
+.account-highlights>summary { font-size: 15px; font-weight: 600; color: #183247; }
+.account-highlights .top-posts { border-top: 0; margin-top: 8px; padding-top: 0; }
+.daily-total { display: inline-grid; grid-template-columns: 5ch 70px; column-gap: 12px; align-items: center; }
+.daily-total-number { text-align: right; font-variant-numeric: tabular-nums; }
+.daily-total-gauge { display: flex; align-items: center; width: 70px; }
+.daily-total-gauge .bar { margin: 0; flex: none; }
+#accounts .content>.stats:first-of-type { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; text-align: center; }
+.user-today-posts { margin-bottom: 28px; }
+.eyebrow { font-size: clamp(28px,5vw,44px); letter-spacing: 3px; line-height: 1.2; }
+.eyebrow { display: flex; align-items: center; gap: 14px; }
+.bluesky-logo { width: 1.15em; height: 1.15em; flex-shrink: 0; }
+.eyebrow { color: #c76d3c; }
+#accounts>.account>h2,#today-title { color: #c76d3c; }
+.followed-latest-list { list-style: none; padding: 0; margin-bottom: 0; }
+.followed-latest-list li { justify-content: space-between; gap: 16px; flex-wrap: wrap; border-bottom: 1px solid #edf1f4; }
+.followed-name { color: #c76d3c; font-weight: 700; }
+.followed-latest-list .elapsed-time { font: inherit; color: inherit; }
+.followed-latest-list li { display: grid; }
+.followed-latest-list li>span { text-align: left; }
+@media(max-width:600px) {
+  .followed-latest-list li { grid-template-columns: 1fr; gap: 6px; }
+}
+#accounts>.account { scroll-margin-top: 20px; }
+#accounts>.account:target { outline: 2px solid #c76d3c; }
+@media(prefers-reduced-motion:no-preference) {
+  html { scroll-behavior: smooth; }
+}
+.remove-user:disabled { opacity: .3; cursor: not-allowed; background: #edf1f4; color: #8b98a3; }
+.followed-today-count strong { font-size: 16px; }
+@media(max-width:700px) {
+}
+.refresh-controls { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+.refresh-controls .note { margin: 8px 0 0; text-align: center; max-width: 180px; }
+.daily-messages-table { max-width: 640px; table-layout: fixed; }
+.daily-messages-table th:first-child { width: 36%; }
+.daily-messages-table th:nth-child(2),.daily-messages-table th:nth-child(3) { width: 17%; }
+.daily-messages-table th:last-child { width: 30%; }
+.hourly-messages-table { max-width: 480px; table-layout: fixed; }
+.hourly-messages-table th:first-child { width: 34%; }
+.hourly-messages-table th:nth-child(2),.hourly-messages-table th:nth-child(3) { width: 22%; }
+.hourly-messages-table th:last-child { width: 22%; }
+.hourly-gauge { display: block; width: 100%; height: 7px; background: #edf1f4; border-radius: 5px; overflow: hidden; }
+.hourly-gauge .bar { display: block; margin: 0; height: 100%; }
+.daily-messages-table,.hourly-messages-table { font-variant-numeric: tabular-nums; }
+@media(max-width:480px) {
+  .daily-messages-table { table-layout: auto; }
+  .daily-messages-table th { font-size: 10px; letter-spacing: .3px; }
+  .daily-messages-table th,.daily-messages-table td { padding-left: 3px; padding-right: 3px; }
+}
+.hourly-activity>.value { font-size: 28px; }
+.page-navigation { text-align: right; margin-bottom: 16px; font-size: 13px; }
+@media(max-width:700px) {
+}
+.statistics-details>summary { margin-bottom: 18px; }
+.followed-list-header { text-align: right; font-size: 12px; font-weight: 700; color: #607283; }
+.followed-latest-list li { grid-template-columns: minmax(150px,1fr) minmax(0,2fr) 100px; }
+.followed-latest-list .followed-today-count { text-align: right; font-variant-numeric: tabular-nums; }
+@media(max-width:700px) {
+  .followed-latest-list li { grid-template-columns: minmax(0,1fr) 100px; gap: 8px; }
+}
+.followed-post-text { display: block; margin-top: 8px; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 14px; line-height: 1.5; color: #087ea4; }
+.followed-list-header { display: grid; grid-template-columns: minmax(150px,1fr) minmax(0,2fr) 100px; gap: 16px; align-items: end; }
+.followed-list-header>span:nth-child(2) { text-align: left; }
+.followed-list-header>span:last-child { text-align: right; }
+@media(max-width:700px) {
+  .followed-list-header { grid-template-columns: minmax(0,1fr) 100px; gap: 8px; }
+  .followed-list-header>span:first-child { display: none; }
+}
+.recent-publications { list-style: none; margin: 0; padding: 0; font-size: 14px; }
+.recent-publications li { padding: 14px 0; border-bottom: 1px solid #edf1f4; }
+.recent-publications .elapsed-time { font: inherit; color: inherit; }
+.followed-profile { display: block; margin-top: 4px; font-size: 12px; overflow-wrap: anywhere; }
+#refresh { display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+.refresh-icon { width: 16px; height: 16px; flex-shrink: 0; }
+#refresh-countdown { margin-top: 2px; max-width: none!important; white-space: nowrap; }
+.publication-meta { font-size: 14px; font-weight: 400; line-height: 1.5; color: #183247; }
+.publication-type { margin-top: 4px; }
+.recent-publications .followed-post-text,.followed-message .followed-post-text { margin-top: 8px; }
+.followed-latest-list li>div,.recent-publications li { min-width: 0; }
+.recent-publications li,.followed-latest-list li { padding: 14px 0; border-bottom: 1px solid #edf1f4; }
+.recent-publications+h3 { margin-top: 24px; }
+.account .stats .value { font-size: 28px; font-variant-numeric: tabular-nums; }
+.account .content>.stats .value,#primary-today>.stats .value { font-size: 38px; }
+.retry-button { display: block; margin-top: 8px; padding: 7px 12px; font-size: 12px; }
+.followed-message .note { margin-bottom: 0; }
+.followed-message .elapsed-time { font: inherit; color: inherit; }
+@media(max-width:700px) {
+  .followed-latest-list .followed-message { grid-column: 1; grid-row: 2; }
+  .followed-latest-list .followed-today-count { grid-column: 2; grid-row: 1 / 3; }
+  .followed-list-header>span:nth-child(2) { align-self: end; }
+}
+.reading-controls { margin: 4px 0 0; }
+.reading-controls+.account { margin-top: 14px; }
+.reading-controls button { background: transparent; color: #607283; font-size: 12px; padding: 5px 0; border-radius: 4px; }
+.reading-controls button:hover { color: #183247; text-decoration: underline; }
+.reading-controls button:focus-visible { outline: 2px solid #087ea4; outline-offset: 4px; }
+.hide-reactions .publication-reactions { display: none; }
+.followed-name,.user-heading { display: flex; align-items: center; gap: 10px; }
+.user-avatar { width: 28px; height: 28px; flex: none; object-fit: cover; border-radius: 50%; background: #f0e6da; }
+.user-heading .user-avatar { width: 36px; height: 36px; }
+.followed-name span,.user-heading span { min-width: 0; overflow-wrap: anywhere; }
+.associated-media { display: block; margin-top: 4px; font-size: 12px; font-weight: 400; }
+.followed-list-header { margin-top: 12px; }
+.followed-latest-list { margin-top: 4px; }
+.followed-latest-list li { padding: 10px 0; }
+.followed-message .publication-type { margin-top: 2px; }
+.followed-message .followed-post-text { margin-top: 5px; line-height: 1.4; }
+.followed-message .associated-media { margin-top: 2px; }
+.followed-user .followed-profile { margin-top: 2px; }
+.followed-latest-list li { align-items: start; }
+.followed-message { padding-top: 3px; }
+.followed-latest-list .followed-today-count { padding-top: 3px; }
+@media(max-width:700px) {
+  .followed-message { padding-top: 0; }
+}
+.followed-list-header>span:last-child { white-space: nowrap; justify-self: end; }
+#accounts>.account{position:relative;margin-top:54px}.account-navigation{position:absolute;top:-28px;right:0;font-size:12px;line-height:20px}#page-bottom{margin-top:16px}section[aria-labelledby="settings-title"]{padding-top:20px;padding-bottom:16px}#period-form{margin-top:14px}#period-fields{margin-top:0;align-items:center}#period-fields input{padding-top:9px;padding-bottom:9px}#period-fields button{padding-top:10px;padding-bottom:10px}section[aria-labelledby="settings-title"]>.note{margin-top:10px;margin-bottom:0}#period-status{margin-top:8px;margin-bottom:0}#period-status:empty{display:none}</style>
+<main id="page-top"><nav class="page-navigation" aria-label="Navigation dans la page"><a href="#page-bottom">Bas de page ↓</a></nav><header><div><div class="eyebrow"><svg class="bluesky-logo" viewBox="0 0 600 530" aria-hidden="true" focusable="false"><path fill="#c76d3c" d="M135.72 44.03C202.22 93.95 273.75 195.17 300 249.5c26.25-54.33 97.78-155.55 164.28-205.47C512.26 8.01 590-19.86 590 68.81c0 17.71-10.15 148.79-16.11 170.07-20.7 73.95-96.14 92.81-163.24 81.4 117.29 19.95 147.13 86.02 82.69 152.09-122.39 125.49-175.91-31.49-189.64-71.71-2.51-7.37-3.69-10.81-3.7-7.89-.01-2.92-1.19.52-3.7 7.89-13.73 40.22-67.25 197.2-189.64 71.71-64.44-66.07-34.6-132.14 82.69-152.09-67.1 11.41-142.54-7.45-163.24-81.4C20.15 217.6 10 86.52 10 68.81 10-19.86 87.74 8.01 135.72 44.03Z"/></svg><span>SUIVI BLUESKY</span></div><p id="period"></p></div><div class="refresh-controls"><button id="refresh" aria-label="Actualiser" title="Actualiser"><svg class="refresh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7v5h-5"/><path d="M20 12a8 8 0 1 0-2.3 5.7"/></svg><span>Actualiser</span></button><p id="refresh-age" class="note" role="status">Actualisation en cours…</p><p id="refresh-countdown" class="note"></p></div></header><div class="reading-controls"><button id="toggle-reactions" type="button" aria-pressed="false">Masquer les réactions</button></div><section class="account" aria-labelledby="today-title"><h2 id="today-title">Aujourd’hui</h2><p class="note">Journée en cours · republications exclues</p><div id="primary-today" role="status" aria-live="polite">Chargement…</div></section><section class="account" aria-labelledby="latest-followed-title"><h2 id="latest-followed-title">Comptes suivis</h2><div id="latest-followed"></div></section><div id="accounts"></div><footer><p class="note">Publications originales et réponses incluses · Republications exclues · Jours calendaires en heure de Paris, aujourd’hui inclus (journée en cours).</p><details><summary>Comment le classement est-il calculé ?</summary><p>Les classements comptent une réponse seulement si tous ses messages parents, jusqu’au publication originale, sont écrits par l’auteur de la publication originale. Les prolongements de son propre fil sont inclus. Dès qu’un autre auteur intervient dans une branche, toutes les réponses suivantes de cette branche sont exclues. Les réponses à soi-même sont exclues. Chaque réponse admissible compte une fois ; plusieurs branches indépendantes peuvent donc compter pour la même personne. Le classement reçu porte sur les messages du compte et les réponses publiés pendant la période. Le classement envoyé porte sur ses réponses publiées pendant la période, même si les messages parents sont plus anciens. Si un parent est inaccessible, la réponse est exclue et le classement est signalé comme partiel.</p></details><p class="note">Données publiques · cache temporaire de 2 minutes (profils : 10 minutes). « Actualiser » force une nouvelle lecture depuis Bluesky. Aucun accès à ton compte n’est nécessaire.</p></footer><section class="account" aria-labelledby="manage-title"><h2 id="manage-title">Comptes suivis</h2><p class="note">Ajoute un identifiant court, un identifiant complet ou un lien de profil Bluesky. La liste et son ordre sont enregistrés dans ce navigateur. Utilise les flèches pour réordonner les comptes.</p><fieldset id="manage-fields"><form id="add-user" class="manage-form"><label for="user-handle" class="note">Compte Bluesky</label><input id="user-handle" placeholder="exemple.bsky.social" required autocomplete="off" autocapitalize="none" spellcheck="false"><button type="submit" id="add-button">Ajouter</button></form><ul id="user-list" class="user-list"></ul></fieldset><p id="manage-status" class="status" role="status" aria-live="polite"></p></section><section class="account" aria-labelledby="settings-title"><h2 id="settings-title">Période d’analyse</h2><form id="period-form" class="manage-form"><fieldset id="period-fields" class="manage-form"><label for="period-days">Nombre de jours (aujourd’hui inclus)</label><input id="period-days" type="number" min="1" max="90" step="1" required value="10"><button type="submit">Appliquer</button></fieldset></form><p class="note">De 1 à 90 jours. Ce réglage s’applique à tous les comptes, tableaux et classements. Les compteurs « aujourd’hui » restent sur la journée en cours. Une période longue peut prendre davantage de temps à charger.</p><p id="period-status" class="status" role="status" aria-live="polite"></p></section><nav id="page-bottom" class="page-navigation" aria-label="Navigation dans la page"><a href="#page-top">Haut de page ↑</a></nav></main>
+<script>const REACTIONS_KEY='suivi-bluesky-hide-reactions-v1';
+let reactionsHidden=false;
+try{reactionsHidden=localStorage.getItem(REACTIONS_KEY)==='true';}catch{}
+function updateReactionVisibility(){
+ document.body.classList.toggle('hide-reactions',reactionsHidden);
+ const button=document.querySelector('#toggle-reactions');
+ button.textContent=reactionsHidden?'Afficher les réactions':'Masquer les réactions';button.setAttribute('aria-pressed',String(reactionsHidden));
+}
+document.querySelector('#toggle-reactions').addEventListener('click',()=>{
+ reactionsHidden=!reactionsHidden;try{localStorage.setItem(REACTIONS_KEY,String(reactionsHidden));}catch{}updateReactionVisibility();
+});
+updateReactionVisibility();
+const requestedUser=new URLSearchParams(window.location.search).get('user');
+let primaryHandle=null;
+let primaryParameterError=false;
+if(requestedUser){try{primaryHandle=normalizeHandle(requestedUser);}catch{primaryParameterError=true;}}
+document.querySelector('#today-title').textContent=primaryHandle?primaryHandle+' · aujourd’hui':'Aujourd’hui';
+document.querySelector('#today-title').closest('section').hidden=!primaryHandle;
+if(primaryParameterError){const warning=document.createElement('p');warning.className='note error';warning.textContent='Paramètre user invalide : indique un identifiant Bluesky valide.';document.querySelector('#today-title').after(warning);}
+const STORAGE_KEY='suivi-bluesky-handles-v1';
+let storageAvailable=true;
+let HANDLES=[];
+try {
+  const saved=JSON.parse(localStorage.getItem(STORAGE_KEY));
+  if(Array.isArray(saved) && saved.every(h=>typeof h==='string' && /^[a-z0-9.-]+\.[a-z]{2,}$/.test(h)))HANDLES=[...new Set(saved)];
+}catch{storageAvailable=false;}
+function saveHandles(){
+  try{localStorage.setItem(STORAGE_KEY,JSON.stringify(HANDLES));return true;}
+  catch{storageAvailable=false;return false;}
+}
+let periodDays=10;
+try{const saved=Number(localStorage.getItem('suivi-bluesky-days-v1'));if(Number.isInteger(saved)&&saved>=1&&saved<=90)periodDays=saved;}catch{}
+document.querySelector('#period-days').value=periodDays;
+document.querySelector('#period-form').addEventListener('submit',async event=>{
+  event.preventDefault();const input=document.querySelector('#period-days');
+  if(!input.reportValidity())return;
+  const value=Number(input.value);if(!Number.isInteger(value)||value<1||value>90)return;
+  periodDays=value;
+  let saved=true;try{localStorage.setItem('suivi-bluesky-days-v1',String(value));}catch{saved=false;}
+  document.querySelector('#period-status').textContent=saved?'Période enregistrée.':'Période appliquée, mais le navigateur ne permet pas de l’enregistrer.';
+  await refresh();
+});
+const API = 'https://public.api.bsky.app/xrpc/';
+const dayFormatter=new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Paris',year:'numeric',month:'2-digit',day:'2-digit'});
+const dateKey = date => dayFormatter.format(new Date(date));
+const escape = text => String(text).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function getDays(now = new Date()) {
+  const today = dateKey(now);
+  const base = new Date(today + 'T12:00:00Z');
+  return Array.from({length:periodDays}, (_,i) => {const d = new Date(base); d.setUTCDate(d.getUTCDate() - (periodDays-1) + i); return dateKey(d);});
+}
+// Short-lived session cache: re-use reads across period changes and page reloads.
+const CACHE_KEY='suivi-bluesky-api-cache-v1';
+const responseCache=new Map(),inFlight=new Map();
+let activeRequests=0;const requestWaiters=[];
+try{
+  const saved=JSON.parse(sessionStorage.getItem(CACHE_KEY)||'[]');
+  for(const [key,entry] of saved)if(entry.expires>Date.now())responseCache.set(key,entry);
+}catch{}
+let cacheSaveTimer;
+function persistCache(){
+  clearTimeout(cacheSaveTimer);
+  cacheSaveTimer=setTimeout(()=>{
+    try{
+      const entries=[...responseCache].filter(([,entry])=>entry.expires>Date.now()).slice(-120);
+      let size=0;const bounded=[];
+      for(const entry of entries.reverse()){const bytes=JSON.stringify(entry).length;if(size+bytes>1500000)continue;size+=bytes;bounded.push(entry);}
+      sessionStorage.setItem(CACHE_KEY,JSON.stringify(bounded.reverse()));
+    }catch{}
+  },200);
+}
+async function networkJson(url,attempt=0){
+  if(activeRequests>=6)await new Promise(resolve=>requestWaiters.push(resolve));
+  else activeRequests++;
+  let response;
+  try{response=await fetch(url,{signal:AbortSignal.timeout(25000)});}
+  finally{const next=requestWaiters.shift();if(next)next();else activeRequests--;}
+  if((response.status===429 || response.status>=500) && attempt<3){
+    const retry=Number(response.headers?.get('Retry-After'));
+    await new Promise(resolve=>setTimeout(resolve,Math.min(30000,Math.max(1500*(attempt+1),Number.isFinite(retry)?retry*1000:0))));
+    return networkJson(url,attempt+1);
+  }
+  if(!response.ok)throw new Error(response.status===400?'Compte introuvable ou requête refusée par Bluesky.':`Bluesky répond avec une erreur (${response.status}). Réessaie dans quelques instants.`);
+  return response.json();
+}
+async function api(method,params){
+  const query=new URLSearchParams(params);query.sort();const key=API+method+'?'+query;
+  const cached=responseCache.get(key);if(cached?.expires>Date.now())return cached.data;
+  if(inFlight.has(key))return inFlight.get(key);
+  const task=networkJson(key).then(data=>{
+    responseCache.set(key,{data,expires:Date.now()+(method==='app.bsky.actor.getProfile'?600000:120000)});
+    while(responseCache.size>200)responseCache.delete(responseCache.keys().next().value);
+    persistCache();return data;
+  }).finally(()=>inFlight.delete(key));
+  inFlight.set(key,task);return task;
+}
+function clearDataCache(){responseCache.clear();try{sessionStorage.removeItem(CACHE_KEY);}catch{}}
+const latestFollowed=new Map();
+function formatPublicationDate(value,now=new Date()){
+ const date=new Date(value);const sameYear=dateKey(date).slice(0,4)===dateKey(now).slice(0,4);
+ const day=dateKey(date)===dateKey(now)?'aujourd’hui':date.toLocaleDateString('fr-FR',{timeZone:'Europe/Paris',day:'numeric',month:'short',...(!sameYear?{year:'numeric'}:{})});
+ return day+', '+date.toLocaleTimeString('fr-FR',{timeZone:'Europe/Paris',hour:'2-digit',minute:'2-digit'});
+}
+function associatedMediaType(post){
+ function gifUrl(value){
+  try{const url=new URL(value);if(!['https:','http:'].includes(url.protocol))return false;
+   return /\.gif$/i.test(url.pathname)||['tenor.com','giphy.com','gifs.bsky.app','klipy.com'].some(host=>url.hostname===host||url.hostname.endsWith('.'+host));
+  }catch{return false;}
+ }
+ function mediaType(embed){
+  if(!embed)return null;
+  const type=embed.$type||'';
+  if(type==='app.bsky.embed.images'||type==='app.bsky.embed.images#view')return (embed.images||[]).some(image=>image.image?.mimeType==='image/gif'||gifUrl(image.fullsize))?'GIF':'image';
+  if(type==='app.bsky.embed.external'||type==='app.bsky.embed.external#view')return gifUrl(embed.external?.uri)?'GIF':null;
+  if(type==='app.bsky.embed.video'||type==='app.bsky.embed.video#view')return 'vidéo';
+  if(type==='app.bsky.embed.recordWithMedia'||type==='app.bsky.embed.recordWithMedia#view')return mediaType(embed.media);
+  return null;
+ }
+ const view=mediaType(post.embed),record=mediaType(post.record?.embed);
+ return view==='GIF'||record==='GIF'?'GIF':view||record;
+}
+function renderPublication(post,author){
+ const mediaType=associatedMediaType(post);
+ const minutes=Math.max(0,Math.floor((Date.now()-Date.parse(post.record.createdAt))/60000));
+ const type=post.record.reply?'Réponse à '+(author?'<a href="https://bsky.app/profile/'+encodeURIComponent(author.handle||author.did)+'" target="_blank" rel="noopener">'+escape(author.displayName||author.handle||author.did)+(author.handle?' (@'+escape(author.handle)+')':'')+'</a>':'un compte indisponible'):'Publication originale';
+ const url='https://bsky.app/profile/'+encodeURIComponent(post.author.handle||post.author.did)+'/post/'+encodeURIComponent(post.uri.split('/').pop());
+ return '<div class="publication-meta">'+escape(formatPublicationDate(post.record.createdAt))+' <span class="elapsed-time" data-published-at="'+escape(post.record.createdAt)+'">(il y a '+formatElapsed(minutes)+')</span><span class="publication-reactions"> · '+(post.replyCount||0)+' '+((post.replyCount||0)===1?'réponse':'réponses')+' · '+(post.likeCount||0)+' '+((post.likeCount||0)===1?'like':'likes')+'</span></div><div class="publication-type note">'+type+'</div><a class="followed-post-text" href="'+url+'" target="_blank" rel="noopener">'+escape(post.record.text?.trim()||'(Publication sans texte : média ou contenu intégré)')+(mediaType?'<em class="associated-media">média associé ('+mediaType+')</em>':'')+'</a>';
+}
+function retryButton(){return '<button type="button" class="retry-button" data-retry-refresh>Réessayer</button>';}
+function renderAvatar(url){
+ if(!url)return '';
+ try{if(new URL(url).protocol!=='https:')return '';}catch{return '';}
+ return '<img class="user-avatar" src="'+escape(url)+'" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer">';
+}
+const followedRowCache=new Map();
+let followedList=null,followedHost=null;
+function renderFollowedLatest(){
+ document.querySelector('#latest-followed-title').textContent=HANDLES.length+' compte'+(HANDLES.length===1?'':'s')+' suivi'+(HANDLES.length===1?'':'s');
+ const host=document.querySelector('#latest-followed');
+ if(host!==followedHost){followedHost=host;followedList=null;followedRowCache.clear();}
+ const active=new Set(HANDLES);
+ for(const [handle,cached] of followedRowCache){if(!active.has(handle)){cached.row.remove();followedRowCache.delete(handle);}}
+ if(!HANDLES.length){
+   if(followedList||!host.firstChild)host.innerHTML='<p class="note">Aucun compte suivi. Ajoute ton premier compte dans la rubrique ci-dessous.</p>';
+   followedList=null;return;
+ }
+ if(!followedList){
+   host.innerHTML='<div class="followed-list-header"><span></span><span>Dernier message</span><span>Messages aujourd’hui</span></div><ul class="followed-latest-list"></ul>';
+   followedList=host.querySelector('.followed-latest-list');
+ }
+ const sorted=[...HANDLES].sort((a,b)=>(Date.parse(latestFollowed.get(b)?.post?.record.createdAt)||0)-(Date.parse(latestFollowed.get(a)?.post?.record.createdAt)||0));
+ sorted.forEach((handle,index)=>{
+   const entry=latestFollowed.get(handle),post=entry?.post;
+   let cached=followedRowCache.get(handle);
+   if(!cached){
+     const row=document.createElement('li');
+     row.innerHTML='<div class="followed-user"></div><div class="followed-message"></div><span class="followed-today-count" aria-label="Messages aujourd’hui"><strong></strong></span>';
+     cached={row,user:row.querySelector('.followed-user'),message:row.querySelector('.followed-message'),count:row.querySelector('strong')};
+     followedRowCache.set(handle,cached);
+   }
+   const userKey=JSON.stringify([entry?.name||handle,entry?.avatar||'']);
+   if(cached.userKey!==userKey){
+     cached.user.innerHTML='<a class="followed-name" href="#account-'+encodeURIComponent(handle)+'">'+renderAvatar(entry?.avatar)+'<span>'+escape(entry?.name||handle)+'</span></a><a class="followed-profile" href="https://bsky.app/profile/'+encodeURIComponent(handle)+'" target="_blank" rel="noopener">@'+escape(handle)+' ↗</a>';
+     cached.userKey=userKey;
+   }
+   const messageKey=JSON.stringify(post?[post.uri,post.record.createdAt,post.record.text,post.record.reply?.parent?.uri,associatedMediaType(post),post.replyCount||0,post.likeCount||0,entry.replyAuthor?.did,entry.replyAuthor?.handle,entry.replyAuthor?.displayName,dateKey(new Date())]:[Boolean(entry?.error),Boolean(entry?.loading)]);
+   if(cached.messageKey!==messageKey){
+     cached.message.innerHTML=post?renderPublication(post,entry.replyAuthor):entry?.error?'<p class="note error">Publications indisponibles.</p>'+retryButton():entry?.loading?'<p class="note">Chargement des publications…</p>':'<p class="note">Aucune publication accessible.</p>';
+     cached.messageKey=messageKey;
+   }
+   const count=String(entry?.todayCount??'—');
+   if(cached.count.textContent!==count)cached.count.textContent=count;
+   if(followedList.children[index]!==cached.row)followedList.insertBefore(cached.row,followedList.children[index]||null);
+ });
+}
+const containers = new Map();
+function createAccount(handle){
+  const section=document.createElement('section');section.className='account';section.id='account-'+handle;
+  section.innerHTML=`<nav class="account-navigation" aria-label="Navigation dans la page"><a href="#page-top">Haut de page ↑</a></nav><h2>${escape(handle.split('.')[0])}</h2><a class="handle" href="https://bsky.app/profile/${encodeURIComponent(handle)}" target="_blank" rel="noopener">@${escape(handle)} ↗</a><div class="content"></div><div class="status" role="status" aria-live="polite"></div>`;
+  document.querySelector('#accounts').append(section);containers.set(handle,section);return section;
+}
+HANDLES.forEach(createAccount);
+function renderUsers(){
+  renderFollowedLatest();
+  const list=document.querySelector('#user-list');list.replaceChildren();
+  for(const [index,handle] of HANDLES.entries()){
+    const row=document.createElement('li'),name=document.createElement('span'),button=document.createElement('button');
+    name.textContent='@'+handle;button.type='button';button.className='remove-user';button.textContent='Retirer';button.setAttribute('aria-label','Retirer '+handle);
+    button.addEventListener('click',()=>{
+      HANDLES=HANDLES.filter(h=>h!==handle);containers.get(handle)?.remove();containers.delete(handle);
+      const saved=saveHandles();renderUsers();
+      document.querySelector('#manage-status').textContent=`@${handle} retiré.`+(saved?'':' La liste ne peut pas être enregistrée dans ce navigateur.');
+    });
+    const controls=document.createElement('div');controls.style.cssText='display:flex;gap:6px;flex-shrink:0';
+    for(const [direction,label,symbol] of [[-1,'Monter','↑'],[1,'Descendre','↓']]){
+      const move=document.createElement('button');move.type='button';move.className='remove-user';move.textContent=symbol;
+      move.title=label;move.setAttribute('aria-label',label+' '+handle);
+      move.disabled=index+direction<0 || index+direction>=HANDLES.length;
+      move.addEventListener('click',()=>{
+        const next=index+direction;if(next<0 || next>=HANDLES.length)return;[HANDLES[index],HANDLES[next]]=[HANDLES[next],HANDLES[index]];
+        for(const h of HANDLES)document.querySelector('#accounts').append(containers.get(h));
+        const saved=saveHandles();renderUsers();
+        document.querySelector('#manage-status').textContent='Ordre mis à jour.'+(saved?'':' Impossible de mémoriser cet ordre dans ce navigateur.');
+        document.querySelectorAll('#user-list li')[next]?.querySelector(direction===-1?'button':'button:nth-child(2)')?.focus();
+      });controls.append(move);
+    }
+    controls.append(button);row.append(name,controls);list.append(row);
+  }
+  if(!HANDLES.length){const row=document.createElement('li');row.textContent='Aucun compte suivi. Ajoute un compte ci-dessus.';list.append(row);}
+}
+function normalizeHandle(value){
+  let handle=value.trim().toLowerCase();
+  if(/^https?:\/\//.test(handle)){
+    const url=new URL(handle);if(url.hostname!=='bsky.app')throw new Error('Utilise un lien de profil bsky.app.');
+    const match=url.pathname.match(/^\/profile\/([^/]+)\/?$/);if(!match)throw new Error('Utilise le lien du profil, plutôt que celui d’un message.');handle=decodeURIComponent(match[1]);
+  }
+  handle=handle.replace(/^@/,'');if(!handle.includes('.'))handle+='.bsky.social';
+  if(!/^[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?\.[a-z]{2,}$/.test(handle))throw new Error('Cet identifiant Bluesky ne semble pas valide.');
+  return handle;
+}
+document.querySelector('#add-user').addEventListener('submit',async event=>{
+  event.preventDefault();const status=document.querySelector('#manage-status'),fields=document.querySelector('#manage-fields'),refreshButton=document.querySelector('#refresh');
+  fields.disabled=true;refreshButton.disabled=true;document.querySelector('#period-fields').disabled=true;status.className='status';status.textContent='Vérification du compte…';
+  try{
+    const requested=normalizeHandle(document.querySelector('#user-handle').value);
+    const profile=await api('app.bsky.actor.getProfile',{actor:requested});const handle=profile.handle.toLowerCase();
+    if(HANDLES.includes(handle))throw new Error('Ce compte est déjà dans la liste.');
+    HANDLES.push(handle);const section=createAccount(handle),saved=saveHandles();renderUsers();document.querySelector('#user-handle').value='';
+    status.textContent=`@${handle} ajouté.`+(saved?'':' La liste ne peut pas être enregistrée dans ce navigateur.');
+    await loadAccount(handle,section,getDays());
+  }catch(error){status.className='status error';status.textContent=error.message;}
+  finally{fields.disabled=false;refreshButton.disabled=false;document.querySelector('#period-fields').disabled=false;}
+});
+renderUsers();
+if(!storageAvailable)document.querySelector('#manage-status').textContent='Le stockage local est indisponible : les changements seront conservés seulement pour cette ouverture.';
+function formatElapsed(minutes){
+  const days=Math.floor(minutes/1440),hours=Math.floor(minutes%1440/60);
+  return [days?days+' j':null,hours?hours+' h':null,minutes%60+' min'].filter(Boolean).join(' ');
+}
+setInterval(()=>{
+  document.querySelectorAll('.elapsed-time').forEach(node=>{
+    const minutes=Math.max(0,Math.floor((Date.now()-Date.parse(node.dataset.publishedAt))/60000));
+    node.textContent=`(il y a ${formatElapsed(minutes)})`;
+  });
+},60000);
+function latestPublications(posts,limit=5){
+ return [...posts.values()].sort((a,b)=>Date.parse(b.record.createdAt)-Date.parse(a.record.createdAt)).slice(0,limit);
+}
+function renderOriginalsToday(posts,parentAuthors){
+ return renderRecentPublications(posts,parentAuthors,'Publications originales publiées aujourd’hui','Aucune publication originale publiée aujourd’hui.');
+}
+async function resolveParentAuthors(posts,parentAuthors){
+ const missing=[...new Set(posts.map(post=>post.record.reply?.parent?.uri).filter(uri=>uri&&!parentAuthors.has(uri)))];
+ for(let offset=0;offset<missing.length;offset+=25){
+  try{const params=new URLSearchParams();missing.slice(offset,offset+25).forEach(uri=>params.append('uris',uri));
+   for(const parent of (await api('app.bsky.feed.getPosts',params)).posts||[])parentAuthors.set(parent.uri,parent.author);
+  }catch{} // Keep publications readable when a parent is unavailable.
+ }
+}
+function renderToday(posts,today,parentAuthors=new Map(),recentPosts=posts){
+  const messages=[...posts.values()].filter(post=>dateKey(post.record.createdAt)===today);
+  const replies=messages.filter(post=>Boolean(post.record.reply)).length;
+  document.querySelector('#primary-today').innerHTML=`<div class="stats"><div><div class="value">${messages.length-replies}</div><div class="label">publications originales</div></div><div><div class="value">${replies}</div><div class="label">réponses</div></div><div><div class="value">${messages.length}</div><div class="label">total</div></div></div>`;
+
+  const originals=messages.filter(post=>!post.record.reply).sort((a,b)=>new Date(b.record.createdAt)-new Date(a.record.createdAt));
+  const list=document.createElement('div');
+  list.innerHTML=renderOriginalsToday(originals,parentAuthors);
+  const latest=document.createElement('div');
+  latest.innerHTML=renderRecentPublications(latestPublications(recentPosts),parentAuthors);
+  document.querySelector('#primary-today').append(latest,list);
+
+}
+async function loadTodayOnly(){
+  // Reuse the same complete pagination when the primary account is absent from the followed list.
+  const detached=document.createElement('section');
+  detached.innerHTML='<h2></h2><div class="content"></div><div class="status"></div><div class="ranking"></div><div class="outgoing"></div>';
+  await loadAccount(primaryHandle,detached,[dateKey(new Date())],true);
+}
+function calculateHourlyActivity(posts,days,today=dateKey(new Date())){
+  const buckets=[0,0,0,0],lastByDay=new Map(),selected=new Set(days);
+  const clock=new Intl.DateTimeFormat('fr-FR',{timeZone:'Europe/Paris',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'});
+  for(const post of posts.values()){
+    const timestamp=Date.parse(post.record.createdAt);if(!Number.isFinite(timestamp))continue;
+    const day=dateKey(post.record.createdAt);if(!selected.has(day))continue;
+    const parts=Object.fromEntries(clock.formatToParts(new Date(timestamp)).map(part=>[part.type,part.value]));
+    const seconds=Number(parts.hour)*3600+Number(parts.minute)*60+Number(parts.second);
+    buckets[Math.floor(Number(parts.hour)/6)]++;
+    if(day<today && (!lastByDay.has(day)||timestamp>lastByDay.get(day).timestamp))lastByDay.set(day,{timestamp,seconds});
+  }
+  const eveningDays=[...lastByDay.values()].filter(last=>last.seconds>=18*3600);
+  const activeDays=eveningDays.length;
+  const averageMinutes=activeDays?Math.round(eveningDays.reduce((sum,last)=>sum+last.seconds,0)/activeDays/60):null;
+  return {buckets,activeDays,averageMinutes};
+}
+function renderHourlyActivity(posts,days){
+  const {buckets,activeDays,averageMinutes}=calculateHourlyActivity(posts,days);
+  const total=buckets.reduce((sum,count)=>sum+count,0);
+  const labels=['0–6 h','6–12 h','12–18 h','18–24 h'];
+  const average=averageMinutes===null?'Indisponible':String(Math.floor(averageMinutes/60)).padStart(2,'0')+' h '+String(averageMinutes%60).padStart(2,'0');
+  return '<div class="hourly-activity"><h3>Répartition horaire des messages</h3><p class="note">Période sélectionnée · heure de Paris · publications originales et réponses incluses · republications exclues. Chaque tranche inclut son heure de début et exclut son heure de fin.</p><table class="hourly-messages-table"><thead><tr><th>Tranche horaire</th><th>Messages</th><th>Part</th><th aria-label="Répartition visuelle"></th></tr></thead><tbody>'+buckets.map((count,index)=>'<tr><td>'+labels[index]+'</td><td>'+count+'</td><td>'+(total?(count/total*100).toLocaleString('fr-FR',{maximumFractionDigits:0}):'0')+' %</td><td><span class="hourly-gauge" aria-hidden="true"><span class="bar" style="width:'+(total?count/total*100:0)+'%"></span></span></td></tr>').join('')+'</tbody></table><h3>Heure moyenne du dernier message quotidien</h3><div class="value">'+average+'</div><p class="note">Moyenne des heures des derniers messages de chaque journée terminée de la période · '+activeDays+' jour'+(activeDays===1?'':'s')+' avec publication à partir de 18 h. Aujourd’hui et les jours sans message à partir de 18 h sont exclus.</p></div>';
+}
+function createBatchedPostFetcher(fetchBatch){
+  const pending=new Map();let scheduled=false;
+  async function flush(){
+    scheduled=false;const batch=[...pending.entries()].slice(0,25);
+    batch.forEach(([uri])=>pending.delete(uri));
+    if(pending.size){scheduled=true;setTimeout(flush,0);}
+    try{const posts=await fetchBatch(batch.map(([uri])=>uri));const byUri=new Map(posts.map(post=>[post.uri,post]));for(const [uri,waiter] of batch)waiter.resolve(byUri.get(uri));}
+    catch(error){for(const [,waiter] of batch)waiter.reject(error);}
+  }
+  return uri=>{
+    if(pending.has(uri))return pending.get(uri).promise;
+    let resolve,reject;const promise=new Promise((yes,no)=>{resolve=yes;reject=no;});
+    pending.set(uri,{promise,resolve,reject});
+    if(!scheduled){scheduled=true;setTimeout(flush,0);}return promise;
+  };
+}
+function createThreadEligibility(posts,fetchPost){
+  const records=new Map([...posts].map(([uri,post])=>[uri,Promise.resolve(post)]));
+  const results=new Map(),resolved=new Map();
+  async function getPost(uri){
+    if(!records.has(uri))records.set(uri,Promise.resolve().then(()=>fetchPost(uri)).catch(error=>{records.delete(uri);throw error;}));
+    const post=await records.get(uri);
+    if(!post?.author?.did||!post.record)throw new Error('Message parent inaccessible.');
+    return post;
+  }
+  async function inspect(post){
+    const author=post.author,seen=new Set(),path=[];let current=post;
+    function finish(result){for(const uri of path)resolved.set(uri,result);return result;}
+    for(let depth=0;depth<1000;depth++){
+      if(seen.has(current.uri))throw new Error('Boucle dans le fil de discussion.');seen.add(current.uri);
+      if(current.author.did!==author.did)return finish(null);
+      if(resolved.has(current.uri)){const result=resolved.get(current.uri);return finish(result?.did===author.did?result:null);}
+      path.push(current.uri);
+      if(!current.record.reply)return finish(author);
+      const uri=current.record.reply.parent?.uri;if(!uri)throw new Error('Message parent manquant.');current=await getPost(uri);
+    }
+    throw new Error('Fil trop long pour vérifier tous les messages parents.');
+  }
+  return async function eligibleAuthor(uri){
+    if(resolved.has(uri))return resolved.get(uri);
+    if(!results.has(uri))results.set(uri,getPost(uri).then(inspect).catch(error=>{results.delete(uri);throw error;}));
+    return results.get(uri);
+  };
+}
+async function loadFollowedSummary(handle){
+  latestFollowed.set(handle,{...latestFollowed.get(handle),loading:true});renderFollowedLatest();
+  try{
+    const profile=await api('app.bsky.actor.getProfile',{actor:handle});
+    const today=dateKey(new Date()),seen=new Set(),cursors=new Set();
+    let post=null,replyAuthor=null,cursor,pages=0,todayCount=0;
+    do{
+      const result=await api('app.bsky.feed.getAuthorFeed',{actor:profile.did,limit:'100',filter:'posts_with_replies',...(cursor?{cursor}:{})});
+      for(const item of result.feed||[]){
+        const candidate=item.post;if(item.reason||candidate.author.did!==profile.did)continue;
+        if(!post||Date.parse(candidate.record.createdAt)>Date.parse(post.record.createdAt)){post=candidate;replyAuthor=item.reply?.parent?.author||null;}
+        if(dateKey(candidate.record.createdAt)===today&&!seen.has(candidate.uri)){seen.add(candidate.uri);todayCount++;}
+      }
+      const events=(result.feed||[]).filter(item=>!item.reason?.$type?.includes('ReasonPin')).map(item=>item.reason?.indexedAt||item.post.indexedAt||item.post.record.createdAt);
+      cursor=result.cursor;
+      if(!cursor||(post&&events.length&&events.every(time=>dateKey(time)<today)))break;
+      if(cursors.has(cursor)||++pages>=300)throw new Error('Pagination interrompue.');cursors.add(cursor);
+    }while(cursor);
+    latestFollowed.set(handle,{post,replyAuthor,name:profile.displayName||profile.handle,avatar:profile.avatar,todayCount});renderFollowedLatest();
+    if(post?.record.reply&&!replyAuthor){try{
+      const result=await api('app.bsky.feed.getPosts',new URLSearchParams({uris:post.record.reply.parent.uri}));
+      replyAuthor=result.posts?.find(p=>p.uri===post.record.reply.parent.uri)?.author||null;
+      latestFollowed.set(handle,{post,replyAuthor,name:profile.displayName||profile.handle,avatar:profile.avatar,todayCount});renderFollowedLatest();
+    }catch{}}
+  }catch{latestFollowed.set(handle,{...latestFollowed.get(handle),loading:false,error:true});renderFollowedLatest();}
+}
+function renderRecentPublications(posts,parentAuthors=new Map(),title='5 dernières publications',emptyMessage='Aucune publication accessible.'){
+ return '<h3>'+escape(title)+'</h3>'+(posts.length?'<ul class="recent-publications">'+posts.map(post=>'<li>'+renderPublication(post,parentAuthors.get(post.record.reply?.parent?.uri))+'</li>').join('')+'</ul>':'<p class="note">'+escape(emptyMessage)+'</p>');
+}
+async function loadAccount(handle, section, days, todayOnly=false) {
+  const displayedContent=section.querySelector('.content'),status=section.querySelector('.status');
+  const content=document.createElement('div');
+  status.className='status';status.textContent='Chargement des publications…';
+  if(!todayOnly&&!latestFollowed.get(handle)?.post){latestFollowed.set(handle,{loading:true});renderFollowedLatest();}
+  try {
+    const profile = await api('app.bsky.actor.getProfile',{actor:handle});
+    section.querySelector('h2').classList.add('user-heading');
+    section.querySelector('h2').innerHTML=renderAvatar(profile.avatar)+'<span>'+escape(profile.displayName||profile.handle)+'</span>';
+    if(handle===primaryHandle){
+      const title=document.querySelector('#today-title');title.classList.add('user-heading');title.innerHTML=renderAvatar(profile.avatar)+'<span>'+escape(profile.displayName||profile.handle)+' · aujourd’hui</span>';
+      let link=document.querySelector('#primary-profile');if(!link){link=document.createElement('a');link.id='primary-profile';link.className='followed-profile';link.target='_blank';link.rel='noopener';title.after(link);}
+      link.href='https://bsky.app/profile/'+encodeURIComponent(profile.handle);link.textContent='@'+profile.handle+' ↗';
+    }
+    let creation=section.querySelector('.account-created');
+    if(!creation){
+      creation=document.createElement('p');creation.className='note account-created';
+      const profileLink=section.querySelector('.handle');
+      if(profileLink)profileLink.after(creation);
+    }
+    const createdAt=profile.createdAt ? new Date(profile.createdAt) : null;
+    creation.textContent=createdAt && !Number.isNaN(createdAt.getTime())
+      ? 'Compte créé le '+createdAt.toLocaleDateString('fr-FR',{timeZone:'Europe/Paris',day:'numeric',month:'long',year:'numeric'})
+      : 'Date de création non disponible.';
+
+    const posts = new Map(), parentAuthors = new Map(), recentPosts = new Map(); let latestPost=null,latestReplyAuthor=null; let cursor, pages=0;const cursors=new Set();
+    do {
+      const result = await api('app.bsky.feed.getAuthorFeed',{actor:profile.did,limit:'100',filter:'posts_with_replies',...(cursor?{cursor}:{})});
+      for(const item of result.feed || []) {
+        if(item.reason || item.post.author.did!==profile.did) continue;
+        recentPosts.set(item.post.uri,item.post);
+        if(item.reply?.parent?.author)parentAuthors.set(item.reply.parent.uri,item.reply.parent.author);
+        if(!latestPost || Date.parse(item.post.record.createdAt)>Date.parse(latestPost.record.createdAt)){
+          latestPost=item.post;
+          latestReplyAuthor=item.reply?.parent?.author||null;
+        }
+        const day=dateKey(item.post.record.createdAt);
+        if(day>=days[0] && day<=days[days.length-1]) {
+          posts.set(item.post.uri,item.post);
+        }
+      }
+      // Feed is ordered by activity time. Reposts use their repost time; pinned items do not mark the boundary.
+      const events=(result.feed||[]).filter(item=>!item.reason?.$type?.includes('ReasonPin')).map(item=>item.reason?.indexedAt || item.post.indexedAt || item.post.record.createdAt);
+      const pastBoundary=events.length>0 && events.every(time=>dateKey(time)<days[0]);
+      cursor=result.cursor;
+      if(!cursor || (pastBoundary && recentPosts.size>=5))break;
+      if(cursors.has(cursor))throw new Error('Pagination interrompue par Bluesky. Impossible de garantir les totaux.');
+      cursors.add(cursor);pages++;status.textContent=`Chargement des publications… ${posts.size} messages trouvés`;
+      if(pages>=300)throw new Error('Volume trop important pour une lecture complète. Aucun total incomplet n’est affiché.');
+    } while(cursor);
+    if(latestPost?.record.reply && !latestReplyAuthor){
+      try{
+        const result=await api('app.bsky.feed.getPosts',new URLSearchParams({uris:latestPost.record.reply.parent.uri}));
+        latestReplyAuthor=result.posts?.[0]?.author||null;
+      }catch{}
+    }
+    if(!todayOnly){latestFollowed.set(handle,{post:latestPost,replyAuthor:latestReplyAuthor,name:profile.displayName||profile.handle,avatar:profile.avatar,todayCount:[...posts.values()].filter(post=>dateKey(post.record.createdAt)===dateKey(new Date())).length});renderFollowedLatest();}
+    const recent=latestPublications(recentPosts);
+    await resolveParentAuthors(recent,parentAuthors);
+    if(todayOnly){renderToday(posts,days[days.length-1],parentAuthors,recentPosts);return;}
+    const todayPosts=[...posts.values()].filter(post=>dateKey(post.record.createdAt)===days[days.length-1]);
+    const todayReplies=todayPosts.filter(post=>Boolean(post.record.reply)).length;
+
+    content.innerHTML=`<h3>Aujourd’hui</h3><p class="note">Journée en cours · republications exclues</p><div class="stats"><div><div class="value">${todayPosts.length-todayReplies}</div><div class="label">publications originales</div></div><div><div class="value">${todayReplies}</div><div class="label">réponses</div></div><div><div class="value">${todayPosts.length}</div><div class="label">total du jour</div></div></div><div class="user-today-posts"></div><details class="account-highlights statistics-details"><summary>Voir plus</summary></details>`;
+    const statistics=content.querySelector('.statistics-details');
+    const originals=todayPosts.filter(p=>!p.record.reply).sort((a,b)=>Date.parse(b.record.createdAt)-Date.parse(a.record.createdAt));
+    content.querySelector('.user-today-posts').innerHTML=renderOriginalsToday(originals,parentAuthors)+renderRecentPublications(recent,parentAuthors);
+    let statisticsState='idle';
+    statistics.addEventListener('toggle',async()=>{
+      if(!statistics.open||statisticsState==='loading')return;
+      if(statisticsState==='loaded'){alignRankings(section);return;}
+      statisticsState='loading';
+      const detailStatus=document.createElement('p');detailStatus.className='status';
+      try{
+
+    const counts=days.map(()=>0),replyCounts=days.map(()=>0);
+    const dayIndices=new Map(days.map((day,i)=>[day,i]));
+    for(const post of posts.values()){const index=dayIndices.get(dateKey(post.record.createdAt));if(index!==undefined){counts[index]++;if(post.record.reply)replyCounts[index]++;}}
+    const peak=Math.max(1,...counts);const total=counts.reduce((a,b)=>a+b,0);
+      statistics.innerHTML=`<summary>Voir plus</summary><h3>Sur les ${days.length} derniers jours</h3><div class="stats"><div><div class="value">${total}</div><div class="label">messages sur ${days.length} jours</div></div><div><div class="value">${(total/days.length).toLocaleString('fr-FR',{maximumFractionDigits:1})}</div><div class="label">messages / jour</div></div></div><div><h3>Messages publiés par jour</h3><table class="daily-messages-table"><thead><tr><th>Date</th><th>Originales</th><th>Réponses</th><th>Total</th></tr></thead><tbody>${days.map((day,i)=>`<tr><td class="${[0,6].includes(new Date(day+'T12:00:00Z').getUTCDay())?'weekend':''}">${new Date(day+'T12:00:00Z').toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short',timeZone:'Europe/Paris'})}${i===days.length-1?' · en cours':''}</td><td>${counts[i]-replyCounts[i]}</td><td>${replyCounts[i]}</td><td><span class="daily-total"><span class="daily-total-number">${counts[i]}</span><span class="daily-total-gauge"><span class="bar" style="width:${Math.round(counts[i]/peak*70)}px"></span></span></span></td></tr>`).reverse().join('')}</tbody></table></div>${renderHourlyActivity(posts,days)}<section class="account-highlights interactions-details"><h3>Classements des interactions</h3><div class="columns"><div><h3>Qui répond le plus ?</h3><p class="note">Premières réponses aux publications et aux prolongements du fil écrits uniquement par leur auteur. Suites des échanges exclues.</p><div class="ranking">Chargement des réponses…</div></div><div><h3>À qui ce compte répond-il le plus ?</h3><p class="note">Premières réponses aux publications et aux fils jusque-là écrits uniquement par leur auteur, même plus anciens. Suites des échanges et réponses à soi-même exclues.</p><div class="outgoing">Chargement des destinataires…</div></div></div></section>`;
+      statistics.append(detailStatus);
+      const highlights=document.createElement('section');highlights.className='account-highlights';
+      highlights.innerHTML='<h3>Messages marquants · '+days.length+' derniers jours</h3><div class="top-posts columns"><div><h3>5 publications originales les plus commentées</h3>'+renderTopPosts([...posts.values()].filter(p=>!p.record.reply&&p.replyCount>0).sort((a,b)=>b.replyCount-a.replyCount||Date.parse(b.record.createdAt)-Date.parse(a.record.createdAt)).slice(0,5),parentAuthors)+'</div><div><h3>5 messages les plus aimés</h3>'+renderTopPosts([...posts.values()].filter(p=>p.likeCount>0).sort((a,b)=>b.likeCount-a.likeCount||Date.parse(b.record.createdAt)-Date.parse(a.record.createdAt)).slice(0,5),parentAuthors)+'</div></div>';
+      statistics.append(highlights);
+      const fetchParent=createBatchedPostFetcher(async uris=>{
+        const params=new URLSearchParams();uris.forEach(uri=>params.append('uris',uri));
+        return (await api('app.bsky.feed.getPosts',params)).posts||[];
+      });
+      const eligibleAuthor=createThreadEligibility(posts,fetchParent);
+      const outgoing=new Map();let outgoingPartial=false;
+      const outgoingQueue=[...posts.values()].filter(post=>post.record.reply);
+      async function outgoingWorker(){while(outgoingQueue.length){
+        const post=outgoingQueue.shift();const uri=post.record.reply.parent.uri;
+        try{
+          const author=await eligibleAuthor(uri);
+          if(!author||author.did===profile.did)continue;
+          const entry=outgoing.get(author.did)||{handle:author.handle,name:author.displayName||author.handle,count:0};entry.count++;outgoing.set(author.did,entry);
+        }catch{outgoingPartial=true;}
+      }}
+      const outgoingWork=Promise.all(Array.from({length:4},outgoingWorker)).then(()=>{
+      statistics.querySelector('.outgoing').innerHTML=renderRanking(outgoing,'Aucune réponse envoyée à un autre compte sur cette période.')+(outgoingPartial?'<p class="note error">Classement partiel : certains messages destinataires sont inaccessibles.</p>':'');
+      });
+      const ranking=new Map(),seen=new Set();let completed=0,partial=false;
+      const queue=[...posts.values()].filter(p=>p.replyCount>0);
+      async function worker(){while(queue.length){const post=queue.shift();try{
+        const author=await eligibleAuthor(post.uri);
+        if(!author||author.did!==profile.did)continue;
+        const result=await api('app.bsky.feed.getPostThread',{uri:post.uri,depth:'1',parentHeight:'0'});
+        const replies=result.thread?.replies||[];
+        if(!result.thread?.post||replies.length<post.replyCount)partial=true;
+        for(const node of replies){const p=node.post;if(!p){partial=true;continue;}
+          if(p.author.did===profile.did||seen.has(p.uri))continue;
+          const day=dateKey(p.record.createdAt);if(day<days[0]||day>days[days.length-1]||p.record.reply?.parent?.uri!==post.uri)continue;
+          seen.add(p.uri);const entry=ranking.get(p.author.did)||{handle:p.author.handle,name:p.author.displayName||p.author.handle,count:0};entry.count++;ranking.set(p.author.did,entry);
+        }
+      }catch{partial=true;}completed++;detailStatus.textContent='Chargement des réponses… '+completed+' fils analysés';}}
+      await Promise.all([outgoingWork,...Array.from({length:3},worker)]);
+      statistics.querySelector('.ranking').innerHTML=renderRanking(ranking,partial?'Aucune réponse récupérée.':'Aucune réponse publique sur les messages de cette période.');
+      alignRankings(section);detailStatus.className=partial?'status error':'status';detailStatus.textContent=partial?'Classement partiel : certains fils ou messages ne sont pas intégralement accessibles.':'';
+      statisticsState='loaded';
+      }catch(error){statisticsState='idle';detailStatus.className='status error';detailStatus.textContent='Statistiques indisponibles : '+error.message+' Ferme puis rouvre « Voir plus » pour réessayer.';if(!detailStatus.parentNode)statistics.append(detailStatus);detailStatus.insertAdjacentHTML('beforeend',retryButton());}
+    });
+    const wasOpen=displayedContent.querySelector('.statistics-details')?.open;
+    displayedContent.replaceChildren(...content.childNodes);
+    if(wasOpen)statistics.open=true;
+    if(handle===primaryHandle)renderToday(posts,days[days.length-1],parentAuthors,recentPosts);
+    status.textContent='Actualisé à '+new Date().toLocaleTimeString('fr-FR',{timeZone:'Europe/Paris',hour:'2-digit',minute:'2-digit'})+' · heure de Paris';
+  }catch(error){if(!todayOnly&&!latestFollowed.get(handle)?.post){latestFollowed.set(handle,{error:true});renderFollowedLatest();}if(handle===primaryHandle&&!document.querySelector('#primary-today').querySelector('.stats'))document.querySelector('#primary-today').textContent='Impossible de charger les compteurs : '+error.message;status.className='status error';status.textContent=error.name==='TimeoutError'?'Publications indisponibles : Bluesky met trop de temps à répondre.':'Publications indisponibles : '+error.message;status.insertAdjacentHTML('beforeend',retryButton());}
+}
+function alignRankings(section){
+ const columns=section.querySelector('.interactions-details .columns');if(!columns)return;
+ const panels=[...columns.children];if(panels.length!==2)return;
+ const groups=[panels.map(p=>p.querySelector('h3')),panels.map(p=>p.querySelector('p.note'))];
+ const rows=panels.map(p=>[...(p.querySelector('table')?.rows||[])]);
+ for(let i=0;i<Math.max(...rows.map(r=>r.length));i++)groups.push(rows.map(r=>r[i]));
+ for(const group of groups)for(const node of group)if(node)node.style.height='';
+ if(window.matchMedia('(max-width:700px)').matches)return;
+ for(const group of groups){if(group.some(node=>!node))continue;const height=Math.max(...group.map(node=>node.getBoundingClientRect().height));for(const node of group)node.style.height=height+'px';}
+}
+let alignmentFrame;
+window.addEventListener('resize',()=>{cancelAnimationFrame(alignmentFrame);alignmentFrame=requestAnimationFrame(()=>document.querySelectorAll('#accounts > .account').forEach(alignRankings));});
+if(document.fonts)document.fonts.ready.then(()=>document.querySelectorAll('#accounts > .account').forEach(alignRankings));
+function renderTopPosts(posts,parentAuthors=new Map()){
+ if(!posts.length)return '<p class="note">Aucune publication avec cette réaction sur la période.</p>';
+ return '<ol class="post-list recent-publications">'+posts.map(post=>'<li>'+renderPublication(post,parentAuthors.get(post.record.reply?.parent?.uri))+'</li>').join('')+'</ol>';
+}
+function renderRanking(entries,emptyMessage){const sorted=[...entries.values()].sort((a,b)=>b.count-a.count||a.handle.localeCompare(b.handle)).slice(0,10);return sorted.length?'<table><thead><tr><th>Interlocuteur</th><th>Réponses</th></tr></thead><tbody>'+sorted.map((person,i)=>'<tr><td><span class="ranknum">'+(i+1)+'</span><a target="_blank" rel="noopener" href="https://bsky.app/profile/'+encodeURIComponent(person.handle)+'">'+escape(person.name)+'</a><div class="note">@'+escape(person.handle)+'</div></td><td>'+person.count+'</td></tr>').join('')+'</tbody></table>':emptyMessage;}
+const AUTO_REFRESH_MS=15*60*1000;
+let nextAutoRefreshAt=Date.now()+AUTO_REFRESH_MS;
+let lastRefreshAt=null;
+let autoRefreshTimer;
+function resetAutoRefresh(){
+ clearTimeout(autoRefreshTimer);
+ nextAutoRefreshAt=Date.now()+AUTO_REFRESH_MS;
+ autoRefreshTimer=setTimeout(()=>{
+   if(document.querySelector('#refresh').disabled){resetAutoRefresh();return;}
+   clearDataCache();refresh();
+ },AUTO_REFRESH_MS);
+ updateRefreshAge();
+}
+function updateRefreshAge(){
+ const now=Date.now();
+ const remaining=Math.max(0,Math.ceil((nextAutoRefreshAt-now)/1000));
+ const minutes=Math.floor(remaining/60),seconds=remaining%60;
+ document.querySelector('#refresh-countdown').textContent='Actualisation auto dans '+minutes+' min '+String(seconds).padStart(2,'0')+' s';
+ if(lastRefreshAt===null)return;
+ const elapsed=Math.max(0,Math.floor((now-lastRefreshAt)/60000));
+ document.querySelector('#refresh-age').textContent='Actualisé il y a '+elapsed+' minute'+(elapsed===1?'':'s');
+}
+setInterval(updateRefreshAge,1000);
+async function refresh(){
+ const button=document.querySelector('#refresh');
+ if(button.disabled)return;
+ resetAutoRefresh();button.disabled=true;
+ const fields=[document.querySelector('#manage-fields'),document.querySelector('#period-fields')];
+ fields.forEach(field=>{field.disabled=true;});
+ document.querySelector('#refresh-age').textContent='Actualisation en cours…';
+ const days=getDays(),primary=document.querySelector('#primary-today');
+ if(!primary.querySelector('.stats'))primary.textContent='Chargement…';
+ const dateLabel=day=>new Date(day+'T12:00:00Z').toLocaleDateString('fr-FR',{timeZone:'Europe/Paris'});
+ document.querySelector('#period').textContent='Du '+dateLabel(days[0])+' au '+dateLabel(days[days.length-1])+' · heure de Paris';
+ try{
+  await Promise.all(HANDLES.map(loadFollowedSummary));
+  await new Promise(resolve=>requestAnimationFrame(()=>setTimeout(resolve,0)));
+  const tasks=HANDLES.map(handle=>loadAccount(handle,containers.get(handle),days));
+  if(primaryHandle&&!HANDLES.includes(primaryHandle))tasks.push(loadTodayOnly());
+  await Promise.all(tasks);
+  lastRefreshAt=Date.now();
+ }finally{
+  updateRefreshAge();button.disabled=false;
+  fields.forEach(field=>{field.disabled=false;});
+ }
+}
+document.addEventListener('error',event=>{if(event.target.matches?.('.user-avatar'))event.target.hidden=true;},true);
+document.addEventListener('click',event=>{if(event.target.closest('[data-retry-refresh]')&&!document.querySelector('#refresh').disabled){clearDataCache();refresh();}});
+document.querySelector('#refresh').addEventListener('click',()=>{clearDataCache();return refresh();});refresh();
+
+</script></html>
