@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Suivi Bluesky</title><meta name="app-version" content="a35f51fbeba2ae7b"><link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGNsYXNzPSJibHVlc2t5LWxvZ28iIHZpZXdCb3g9IjAgMCA2MDAgNTMwIiBhcmlhLWhpZGRlbj0idHJ1ZSIgZm9jdXNhYmxlPSJmYWxzZSI+PHBhdGggZmlsbD0iI2Y5NzMxNiIgZD0iTTEzNS43MiA0NC4wM0MyMDIuMjIgOTMuOTUgMjczLjc1IDE5NS4xNyAzMDAgMjQ5LjVjMjYuMjUtNTQuMzMgOTcuNzgtMTU1LjU1IDE2NC4yOC0yMDUuNDdDNTEyLjI2IDguMDEgNTkwLTE5Ljg2IDU5MCA2OC44MWMwIDE3LjcxLTEwLjE1IDE0OC43OS0xNi4xMSAxNzAuMDctMjAuNyA3My45NS05Ni4xNCA5Mi44MS0xNjMuMjQgODEuNCAxMTcuMjkgMTkuOTUgMTQ3LjEzIDg2LjAyIDgyLjY5IDE1Mi4wOS0xMjIuMzkgMTI1LjQ5LTE3NS45MS0zMS40OS0xODkuNjQtNzEuNzEtMi41MS03LjM3LTMuNjktMTAuODEtMy43LTcuODktLjAxLTIuOTItMS4xOS41Mi0zLjcgNy44OS0xMy43MyA0MC4yMi02Ny4yNSAxOTcuMi0xODkuNjQgNzEuNzEtNjQuNDQtNjYuMDctMzQuNi0xMzIuMTQgODIuNjktMTUyLjA5LTY3LjEgMTEuNDEtMTQyLjU0LTcuNDUtMTYzLjI0LTgxLjRDMjAuMTUgMjE3LjYgMTAgODYuNTIgMTAgNjguODEgMTAtMTkuODYgODcuNzQgOC4wMSAxMzUuNzIgNDQuMDNaIi8+PC9zdmc+">
+<html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Suivi Bluesky</title><meta name="app-version" content="812ac3d272311bf1"><link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGNsYXNzPSJibHVlc2t5LWxvZ28iIHZpZXdCb3g9IjAgMCA2MDAgNTMwIiBhcmlhLWhpZGRlbj0idHJ1ZSIgZm9jdXNhYmxlPSJmYWxzZSI+PHBhdGggZmlsbD0iI2Y5NzMxNiIgZD0iTTEzNS43MiA0NC4wM0MyMDIuMjIgOTMuOTUgMjczLjc1IDE5NS4xNyAzMDAgMjQ5LjVjMjYuMjUtNTQuMzMgOTcuNzgtMTU1LjU1IDE2NC4yOC0yMDUuNDdDNTEyLjI2IDguMDEgNTkwLTE5Ljg2IDU5MCA2OC44MWMwIDE3LjcxLTEwLjE1IDE0OC43OS0xNi4xMSAxNzAuMDctMjAuNyA3My45NS05Ni4xNCA5Mi44MS0xNjMuMjQgODEuNCAxMTcuMjkgMTkuOTUgMTQ3LjEzIDg2LjAyIDgyLjY5IDE1Mi4wOS0xMjIuMzkgMTI1LjQ5LTE3NS45MS0zMS40OS0xODkuNjQtNzEuNzEtMi41MS03LjM3LTMuNjktMTAuODEtMy43LTcuODktLjAxLTIuOTItMS4xOS41Mi0zLjcgNy44OS0xMy43MyA0MC4yMi02Ny4yNSAxOTcuMi0xODkuNjQgNzEuNzEtNjQuNDQtNjYuMDctMzQuNi0xMzIuMTQgODIuNjktMTUyLjA5LTY3LjEgMTEuNDEtMTQyLjU0LTcuNDUtMTYzLjI0LTgxLjRDMjAuMTUgMjE3LjYgMTAgODYuNTIgMTAgNjguODEgMTAtMTkuODYgODcuNzQgOC4wMSAxMzUuNzIgNDQuMDNaIi8+PC9zdmc+">
 <style>
 :root { font-family: Inter,system-ui,sans-serif; color: #183247; background: #faf7f0; }
 * { box-sizing: border-box; }
@@ -291,7 +291,17 @@ a { color: var(--reading-link); }
 .reply-preview-heading{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 6px;margin-bottom:4px}
 .reply-preview-author{font-weight:600}
 .reply-preview-heading .elapsed-time{font-weight:400;color:var(--muted-text);white-space:nowrap}
-.reply-preview-text{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;white-space:pre-wrap;line-height:1.5}
+.reply-preview-text{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5}
+.reading-tools{margin-top:7px;font-size:12px}.reading-tools details{margin:6px 0}.reading-tools summary{cursor:pointer;color:var(--reading-link)}
+.reading-result{margin:8px 0;padding:10px;border-left:2px solid #e9e1d7;background:#faf7f0}
+.reading-post{padding:10px 0;border-bottom:1px solid var(--section-line)}.reading-post:last-child{border:0}.reading-text{white-space:pre-wrap;overflow-wrap:anywhere;margin-top:6px;font-size:13px;line-height:1.55}
+.reading-image-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-top:8px}.reading-image-grid figure{margin:0;min-width:0}.image-enlarge{padding:0;background:transparent;display:block;width:100%}.reading-image-grid img{display:block;width:100%;max-height:240px;object-fit:contain;border-radius:8px}.reading-image-grid figcaption{font-size:11px;margin-top:4px;color:var(--muted-text)}
+.reading-lightbox{max-width:95vw;max-height:95dvh;padding:12px;border:0;border-radius:12px;background:#faf7f0}.reading-lightbox::backdrop{background:#000b}.reading-lightbox button{display:block;margin:0 0 10px auto}.reading-lightbox img{display:block;max-width:85vw;max-height:75dvh;object-fit:contain}
+.account-unavailable{display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:400;color:#a43232;margin-left:5px;vertical-align:middle}
+.unavailable-status{color:#a43232}
+.followed-profile-line{display:flex;align-items:baseline;flex-wrap:wrap;gap:2px 6px}.followed-profile-line .account-unavailable{margin-left:0}
+.user-list [data-managed-handle]{display:flex;align-items:center;flex-wrap:wrap;gap:4px 6px}.user-list [data-managed-handle] .account-unavailable{margin-left:0;line-height:1}
+.followed-name-line{display:flex;align-items:center;gap:6px}.followed-name-line .account-unavailable{margin-left:0;flex-shrink:0}
 </style>
 <main id="page-top"><nav class="page-navigation" aria-label="Navigation dans la page"><a href="#page-bottom">Bas de page ↓</a></nav><header><div><div class="eyebrow"><svg class="bluesky-logo" viewBox="0 0 600 530" aria-hidden="true" focusable="false"><path fill="#c76d3c" d="M135.72 44.03C202.22 93.95 273.75 195.17 300 249.5c26.25-54.33 97.78-155.55 164.28-205.47C512.26 8.01 590-19.86 590 68.81c0 17.71-10.15 148.79-16.11 170.07-20.7 73.95-96.14 92.81-163.24 81.4 117.29 19.95 147.13 86.02 82.69 152.09-122.39 125.49-175.91-31.49-189.64-71.71-2.51-7.37-3.69-10.81-3.7-7.89-.01-2.92-1.19.52-3.7 7.89-13.73 40.22-67.25 197.2-189.64 71.71-64.44-66.07-34.6-132.14 82.69-152.09-67.1 11.41-142.54-7.45-163.24-81.4C20.15 217.6 10 86.52 10 68.81 10-19.86 87.74 8.01 135.72 44.03Z"/></svg><span>SUIVI BLUESKY</span></div><p id="period"></p></div><div class="refresh-controls"><button id="refresh" aria-label="Actualiser" title="Actualiser"><svg class="refresh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7v5h-5"/><path d="M20 12a8 8 0 1 0-2.3 5.7"/></svg><span>Actualiser</span></button><p id="refresh-age" class="note" role="status">Actualisation en cours…</p><p id="refresh-countdown" class="note"></p><progress id="refresh-progress" max="100" value="0" aria-label="Temps écoulé avant la prochaine actualisation automatique"></progress></div></header><nav class="mobile-navigation" aria-label="Accès rapide"><a href="#latest-followed-section">Fil suivi</a><a href="#manage-section">Comptes</a><a href="#settings-section">Période</a></nav><div class="reading-controls"><button id="toggle-reactions" type="button" aria-pressed="false">Masquer les réactions</button></div><section class="account" aria-labelledby="today-title"><h2 id="today-title">Aujourd’hui</h2><p class="note">Journée en cours · republications exclues</p><div id="primary-today" role="status" aria-live="polite">Chargement…</div></section><section id="latest-followed-section" class="account" aria-labelledby="latest-followed-title"><h2 id="latest-followed-title">Comptes suivis</h2><div id="latest-followed"></div></section><div id="accounts"></div><footer><p class="note">Publications originales et réponses incluses · Republications exclues · Jours calendaires en heure de Paris, aujourd’hui inclus (journée en cours).</p><details><summary>Comment le classement est-il calculé ?</summary><p>Les classements comptent une réponse seulement si tous ses messages parents, jusqu’au publication originale, sont écrits par l’auteur de la publication originale. Les prolongements de son propre fil sont inclus. Dès qu’un autre auteur intervient dans une branche, toutes les réponses suivantes de cette branche sont exclues. Les réponses à soi-même sont exclues. Chaque réponse admissible compte une fois ; plusieurs branches indépendantes peuvent donc compter pour la même personne. Le classement reçu porte sur les messages du compte et les réponses publiés pendant la période. Le classement envoyé porte sur ses réponses publiées pendant la période, même si les messages parents sont plus anciens. Si un parent est inaccessible, la réponse est exclue et le classement est signalé comme partiel.</p></details><p class="note">Données publiques · cache temporaire de 2 minutes (profils : 10 minutes). « Actualiser » force une nouvelle lecture depuis Bluesky. Aucun accès à ton compte n’est nécessaire.</p></footer><section id="manage-section" class="account" aria-labelledby="manage-title"><h2 id="manage-title">Comptes suivis</h2><p class="note">Ajoute un identifiant court, un identifiant complet ou un lien de profil Bluesky. La liste est enregistrée dans ce navigateur. Les comptes et leurs détails sont affichés du dernier message le plus récent au plus ancien.</p><fieldset id="manage-fields"><form id="add-user" class="manage-form"><input id="user-handle" aria-label="Compte Bluesky" placeholder="exemple.bsky.social" required autocomplete="off" autocapitalize="none" spellcheck="false"><button type="submit" id="add-button">Ajouter</button></form><ul id="user-list" class="user-list"></ul></fieldset><p id="manage-status" class="status" role="status" aria-live="polite"></p></section><section id="settings-section" class="account" aria-labelledby="settings-title"><h2 id="settings-title">Période d’analyse</h2><form id="period-form" class="manage-form"><fieldset id="period-fields" class="manage-form"><label for="period-days">Nombre de jours (aujourd’hui inclus)</label><input id="period-days" type="number" min="1" max="90" step="1" required value="10"><button type="submit">Appliquer</button></fieldset></form><p class="note">De 1 à 90 jours. Ce réglage s’applique à tous les comptes, tableaux et classements. Les compteurs « aujourd’hui » restent sur la journée en cours. Une période longue peut prendre davantage de temps à charger.</p><p id="period-status" class="status" role="status" aria-live="polite"></p></section><nav id="page-bottom" class="page-navigation" aria-label="Navigation dans la page"><a href="#page-top">Haut de page ↑</a></nav></main>
 <script>const REACTIONS_KEY='suivi-bluesky-hide-reactions-v1';
@@ -468,13 +478,85 @@ function renderAssociatedContent(post){
  const label=associatedContentLabels(post);
  return label?'<em class="associated-media">'+escape(label)+'</em>':'';
 }
+function safeMediaUrl(value){try{return new URL(value).protocol==='https:'?value:'';}catch{return '';}}
+function publicationImages(post){
+ const embed=post.embed?.media||post.embed;
+ if((embed?.$type||'')==='app.bsky.embed.images#view')return (embed.images||[]).map(image=>({src:safeMediaUrl(image.fullsize||image.thumb),alt:image.alt||''})).filter(image=>image.src);
+ const external=embed?.external;
+ if(external&&associatedMediaType(post)==='GIF'){
+  const uri=safeMediaUrl(external.uri);
+  if(uri&&/\.gif(?:[?#]|$)/i.test(uri))return [{src:uri,alt:external.title||'GIF'}];
+ }
+ return [];
+}
+function renderReadingTools(post,includeContext=true){
+ const images=publicationImages(post),id='reading-'+(++replyPanelSequence);
+ const media=images.length?'<details class="reading-images"><summary>Afficher '+(associatedMediaType(post)==='GIF'?'le GIF':'les images')+'</summary><div class="reading-image-grid">'+images.map(image=>'<figure><button type="button" class="image-enlarge" data-image-src="'+escape(image.src)+'" data-image-alt="'+escape(image.alt)+'" aria-label="Agrandir l’image"><img data-image-src="'+escape(image.src)+'" alt="'+escape(image.alt)+'" loading="lazy" decoding="async"></button>'+(image.alt?'<figcaption>'+escape(image.alt)+'</figcaption>':'')+'</figure>').join('')+'</div></details>':'';
+ const parent=post.record?.reply?.parent?.uri;
+ return '<div class="reading-tools">'+media+((post.replyCount>0||parent)?'<details hidden class="reading-thread" data-thread-check="pending" data-reading-uri="'+escape(post.uri)+'" data-reading-mode="thread" data-reading-author="'+escape(post.author.did)+'"><summary>Lire le fil de cet auteur</summary><div class="reading-result" aria-live="polite"></div></details>':'')+(parent&&includeContext?'<details class="reading-thread" data-reading-uri="'+escape(parent)+'" data-reading-mode="context"><summary>Voir le message précédent</summary><div class="reading-result" aria-live="polite"></div></details>':'')+'</div>';
+}
+const verifiedReadingThreads=new WeakMap();
+const threadAvailabilityObserver=new IntersectionObserver(entries=>{
+ for(const entry of entries){if(!entry.isIntersecting)continue;
+  const host=entry.target;threadAvailabilityObserver.unobserve(host);
+  for(const detail of host.querySelectorAll('[data-thread-check="pending"]')){
+   detail.dataset.threadCheck='loading';
+   api('app.bsky.feed.getPostThread',{uri:detail.dataset.readingUri,depth:'10',parentHeight:'100'}).then(result=>{
+    const posts=collectAuthorThread(result.thread,detail.dataset.readingAuthor);
+    verifiedReadingThreads.set(detail,posts);detail.hidden=posts.length<2;detail.dataset.threadCheck='done';
+   }).catch(()=>{detail.dataset.threadCheck='failed';});
+  }
+ }
+},{rootMargin:'150px'});
+function observeReadingThreads(root){
+ const details=[...(root.matches?.('[data-thread-check="pending"]')?[root]:[]),...root.querySelectorAll('[data-thread-check="pending"]')];
+ for(const detail of details){if(detail.dataset.threadObserved)continue;detail.dataset.threadObserved='true';threadAvailabilityObserver.observe(detail.closest('.reading-tools'));}
+}
+new MutationObserver(records=>{for(const record of records)for(const node of record.addedNodes)if(node.nodeType===1)observeReadingThreads(node);}).observe(document.body,{childList:true,subtree:true});
+observeReadingThreads(document.body);
+function collectAuthorThread(node,did){
+ if(!node?.post||node.post.author?.did!==did)return [];
+ const ancestors=[];let parent=node.parent;
+ while(parent?.post&&parent.post.author?.did===did){ancestors.unshift(parent.post);parent=parent.parent;}
+ const posts=[],seen=new Set();
+ function walk(item){if(!item?.post||item.post.author?.did!==did||seen.has(item.post.uri))return;seen.add(item.post.uri);posts.push(item.post);for(const reply of item.replies||[])walk(reply);}
+ walk(node);
+ return [...ancestors,...posts].sort((a,b)=>Date.parse(a.record.createdAt)-Date.parse(b.record.createdAt));
+}
+function renderReadingPost(post){
+ const author=post.author,handle=author.handle||author.did;
+ return '<article class="reading-post"><strong>'+escape(author.displayName||handle)+'</strong> <span class="note">(@'+escape(handle)+') · '+escape(formatPublicationDate(post.record.createdAt))+'</span><div class="reading-text">'+escape(post.record.text||'(Publication sans texte)')+'</div>'+renderAssociatedContent(post)+renderReadingTools({...post,replyCount:0,record:{...post.record,reply:undefined}})+'</article>';
+}
+document.addEventListener('toggle',async event=>{
+ const detail=event.target;if(!detail.open)return;
+ if(detail.matches('.reading-replies')){loadReplyAuthors(detail,detail.querySelector('.reply-authors'));return;}
+ if(detail.matches('.reading-images')){detail.querySelectorAll('img[data-image-src]').forEach(image=>{if(!image.hasAttribute('src'))image.src=image.dataset.imageSrc;});return;}
+ if(!detail.matches('.reading-thread')||detail.dataset.loaded)return;
+ detail.dataset.loaded='loading';const panel=detail.querySelector('.reading-result');panel.textContent='Chargement…';
+ try{
+  const isThread=detail.dataset.readingMode==='thread';
+  const verified=isThread?verifiedReadingThreads.get(detail):null;
+  const result=verified?null:await api('app.bsky.feed.getPostThread',{uri:detail.dataset.readingUri,depth:isThread?'10':'0',parentHeight:isThread?'100':'0'});
+  const posts=verified||(isThread?collectAuthorThread(result.thread,detail.dataset.readingAuthor):(result.thread?.post?[result.thread.post]:[]));
+  panel.innerHTML=posts.length?posts.map(renderReadingPost).join(''):'<p>Message supprimé ou inaccessible.</p>';
+  if(isThread)panel.insertAdjacentHTML('beforeend','<p class="note">'+(posts.length===1?'Aucune autre publication de cet auteur dans le fil accessible.':'Fil dans l’ordre de lecture · seules les suites du même auteur sont affichées.')+' Les fils très longs peuvent être partiels.</p>');
+  detail.dataset.loaded='true';
+ }catch(error){delete detail.dataset.loaded;panel.textContent='Chargement impossible. Ferme puis rouvre pour réessayer.';}
+},true);
+document.addEventListener('click',event=>{
+ const button=event.target.closest('.image-enlarge');if(!button)return;
+ const dialog=document.createElement('dialog');dialog.className='reading-lightbox';
+ const close=document.createElement('button');close.textContent='Fermer';close.type='button';close.addEventListener('click',()=>dialog.close());
+ const image=document.createElement('img');image.src=button.dataset.imageSrc;image.alt=button.dataset.imageAlt;
+ dialog.append(close,image);dialog.addEventListener('close',()=>dialog.remove());dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});document.body.append(dialog);dialog.showModal();close.focus();
+});
 let replyPanelSequence=0;
 function renderPublication(post,author){
  const replyPanelId='reply-authors-'+(++replyPanelSequence),likePanelId='like-authors-'+replyPanelSequence;
  const minutes=Math.max(0,Math.floor((Date.now()-Date.parse(post.record.createdAt))/60000));
  const type=post.record.reply?'Réponse à '+(author?'<a href="https://bsky.app/profile/'+encodeURIComponent(author.handle||author.did)+'" target="_blank" rel="noopener">'+escape(author.displayName||author.handle||author.did)+(author.handle?' (@'+escape(author.handle)+')':'')+'</a>':'un compte indisponible'):'Publication originale';
  const url='https://bsky.app/profile/'+encodeURIComponent(post.author.handle||post.author.did)+'/post/'+encodeURIComponent(post.uri.split('/').pop());
- return '<div class="publication-meta"><span class="publication-time'+(minutes<60?' is-recent':'')+'">'+escape(formatPublicationDate(post.record.createdAt))+' <span class="elapsed-time" data-published-at="'+escape(post.record.createdAt)+'">(il y a '+formatElapsed(minutes)+')</span></span><span class="publication-reactions">'+(post.replyCount>0?' · <button type="button" class="publication-replies" data-reply-uri="'+escape(post.uri)+'" data-reply-count="'+post.replyCount+'" aria-expanded="false" aria-controls="'+replyPanelId+'" aria-label="Afficher les '+post.replyCount+' '+(post.replyCount>1?'réponses':'réponse')+'"><span class="reply-icon" aria-hidden="true">💬</span> '+post.replyCount+'</button>':'')+(post.likeCount>0?' · <button type="button" class="publication-likes" data-like-uri="'+escape(post.uri)+'" aria-expanded="false" aria-controls="'+likePanelId+'" aria-label="Afficher les comptes ayant aimé cette publication">❤️ '+post.likeCount+'</button>':'')+'</span></div>'+(post.replyCount>0?'<div id="'+replyPanelId+'" class="reply-authors note" role="status" aria-live="polite" hidden></div>':'')+(post.likeCount>0?'<div id="'+likePanelId+'" class="reply-authors like-authors note" role="status" aria-live="polite" hidden></div>':'')+'<div class="publication-type note">'+type+'</div><a class="followed-post-text" href="'+url+'" target="_blank" rel="noopener">'+escape(post.record.text?.trim()||'(Publication sans texte : média ou contenu intégré)')+renderAssociatedContent(post)+'</a>';
+ return '<div class="publication-meta"><span class="publication-time'+(minutes<60?' is-recent':'')+'">'+escape(formatPublicationDate(post.record.createdAt))+' <span class="elapsed-time" data-published-at="'+escape(post.record.createdAt)+'">(il y a '+formatElapsed(minutes)+')</span></span><span class="publication-reactions">'+(post.replyCount>0?' · <button type="button" class="publication-replies" data-reply-uri="'+escape(post.uri)+'" data-reply-count="'+post.replyCount+'" aria-expanded="false" aria-controls="'+replyPanelId+'" aria-label="Afficher les réponses"><span class="reply-icon" aria-hidden="true">💬</span> '+post.replyCount+'</button>':'')+(post.likeCount>0?' · <button type="button" class="publication-likes" data-like-uri="'+escape(post.uri)+'" aria-expanded="false" aria-controls="'+likePanelId+'" aria-label="Afficher les comptes ayant aimé cette publication">❤️ '+post.likeCount+'</button>':'')+'</span></div>'+(post.replyCount>0?'<div id="'+replyPanelId+'" class="reply-authors note" role="status" aria-live="polite" hidden></div>':'')+(post.likeCount>0?'<div id="'+likePanelId+'" class="reply-authors like-authors note" role="status" aria-live="polite" hidden></div>':'')+'<div class="publication-type note">'+type+'</div><a class="followed-post-text" href="'+url+'" target="_blank" rel="noopener">'+escape(post.record.text?.trim()||'(Publication sans texte : média ou contenu intégré)')+renderAssociatedContent(post)+'</a>'+renderReadingTools(post);
 }
 const replyAuthorStates=new WeakMap();
 function summarizeReplyAuthors(result,uri,expected){
@@ -492,10 +574,9 @@ function summarizeReplyAuthors(result,uri,expected){
 function renderReplyPreviews(panel,state){
  panel.innerHTML='<strong>Réponses</strong>'+(state.replies.length?'<ul class="reply-preview-list">'+state.replies.map(post=>{
   const author=post.author,handle=author.handle||author.did;
-  const url='https://bsky.app/profile/'+encodeURIComponent(handle)+'/post/'+encodeURIComponent(post.uri.split('/').pop());
   const minutes=Math.max(0,Math.floor((Date.now()-Date.parse(post.record.createdAt))/60000));
   const elapsed=Number.isFinite(minutes)?' <span class="elapsed-time" data-published-at="'+escape(post.record.createdAt)+'">(il y a '+formatElapsed(minutes)+')</span>':'';
-   return '<li><div class="reply-preview-heading"><a class="reply-preview-author" href="https://bsky.app/profile/'+encodeURIComponent(handle)+'" target="_blank" rel="noopener">'+escape(author.displayName||handle)+(author.handle?' (@'+escape(author.handle)+')':'')+'</a>'+elapsed+'</div><a class="reply-preview-text" href="'+url+'" target="_blank" rel="noopener">'+escape(post.record.text?.trim()||'(Publication sans texte)')+'</a>'+renderAssociatedContent(post)+'</li>';
+   return '<li><div class="reply-preview-heading"><span class="reply-preview-author">'+escape(author.displayName||handle)+(author.handle?' (@'+escape(author.handle)+')':'')+'</span>'+elapsed+'</div><div class="reply-preview-text">'+escape(post.record.text?.trim()||'(Publication sans texte)')+'</div>'+renderAssociatedContent(post)+renderReadingTools(post,false)+'</li>';
  }).join('')+'</ul>':'<p>Aucune réponse accessible.</p>')+(state.partial?'<p>Liste partielle : certaines réponses ne sont pas accessibles.</p>':'');
 }
 async function loadReplyAuthors(button,panel){
@@ -558,6 +639,7 @@ function syncAccountOrder(handles){
  });
 }
 function renderFollowedLatest(){
+ updateManagedAvailability();
  for(const id of ['#latest-followed-title','#manage-title'])document.querySelector(id).textContent='Comptes suivis ('+HANDLES.length+')';
  const host=document.querySelector('#latest-followed');
  if(host!==followedHost){followedHost=host;followedList=null;followedRowCache.clear();}
@@ -582,14 +664,14 @@ function renderFollowedLatest(){
      cached={row,user:row.querySelector('.followed-user'),message:row.querySelector('.followed-message'),count:row.querySelector('strong')};
      followedRowCache.set(handle,cached);
    }
-   const userKey=JSON.stringify([entry?.name||handle,entry?.avatar||'']);
+   const userKey=JSON.stringify([entry?.name||handle,entry?.avatar||'',Boolean(entry?.error)]);
    if(cached.userKey!==userKey){
-     cached.user.innerHTML='<a class="followed-name" href="#account-'+encodeURIComponent(handle)+'">'+renderAvatar(entry?.avatar)+'<span>'+escape(entry?.name||handle)+'</span></a><a class="followed-profile" href="https://bsky.app/profile/'+encodeURIComponent(handle)+'" target="_blank" rel="noopener">@'+escape(handle)+' ↗</a>';
+     cached.user.innerHTML='<div class="followed-name-line"><a class="followed-name" href="#account-'+encodeURIComponent(handle)+'">'+renderAvatar(entry?.avatar)+'<span>'+escape(entry?.name||handle)+'</span></a>'+(entry?.error?'<span class="account-unavailable">⊘ Indisponible</span>':'')+'</div><div class="followed-profile-line"><a class="followed-profile" href="https://bsky.app/profile/'+encodeURIComponent(handle)+'" target="_blank" rel="noopener">@'+escape(handle)+' ↗</a></div>';
      cached.userKey=userKey;
    }
    const messageKey=JSON.stringify(post?[post.uri,post.record.createdAt,post.record.text,post.record.reply?.parent?.uri,associatedContentLabels(post),post.replyCount||0,post.likeCount||0,entry.replyAuthor?.did,entry.replyAuthor?.handle,entry.replyAuthor?.displayName,dateKey(new Date())]:[Boolean(entry?.error),Boolean(entry?.loading)]);
    if(cached.messageKey!==messageKey){
-     cached.message.innerHTML=post?renderPublication(post,entry.replyAuthor):entry?.error?'<p class="note error">Publications indisponibles.</p>'+retryButton():entry?.loading?'<p class="note">Chargement des publications…</p>':'<p class="note">Aucune publication accessible.</p>';
+     cached.message.innerHTML=post?renderPublication(post,entry.replyAuthor):entry?.error?'':entry?.loading?'<p class="note">Chargement des publications…</p>':'<p class="note">Aucune publication accessible.</p>';
      cached.messageKey=messageKey;
    }
    const count=String(entry?.todayCount??'—');
@@ -609,7 +691,7 @@ function renderUsers(){
   const list=document.querySelector('#user-list');list.replaceChildren();
   for(const handle of [...HANDLES].sort((a,b)=>a.localeCompare(b))){
     const row=document.createElement('li'),name=document.createElement('span'),button=document.createElement('button');
-    name.textContent='@'+handle;button.type='button';button.className='remove-user';button.textContent='Retirer';button.setAttribute('aria-label','Retirer '+handle);
+    name.dataset.managedHandle=handle;name.textContent='@'+handle;button.type='button';button.className='remove-user';button.textContent='Retirer';button.setAttribute('aria-label','Retirer '+handle);
     button.addEventListener('click',()=>{
       HANDLES=HANDLES.filter(h=>h!==handle);containers.get(handle)?.remove();containers.delete(handle);
       const saved=saveHandles();renderUsers();
@@ -618,6 +700,14 @@ function renderUsers(){
     row.append(name,button);list.append(row);
   }
   if(!HANDLES.length){const row=document.createElement('li');row.textContent='Aucun compte suivi. Ajoute un compte ci-dessus.';list.append(row);}
+  updateManagedAvailability();
+}
+function updateManagedAvailability(){
+ document.querySelectorAll('[data-managed-handle]').forEach(name=>{
+  const unavailable=Boolean(latestFollowed.get(name.dataset.managedHandle)?.error),badge=name.querySelector('.account-unavailable');
+  if(unavailable&&!badge){const label=document.createElement('span');label.className='account-unavailable';label.textContent='⊘ Indisponible';name.append(label);}
+  else if(!unavailable&&badge)badge.remove();
+ });
 }
 function normalizeHandle(value){
   let handle=value.trim().toLowerCase();
@@ -634,11 +724,14 @@ document.querySelector('#add-user').addEventListener('submit',async event=>{
   fields.disabled=true;refreshButton.disabled=true;document.querySelector('#period-fields').disabled=true;status.className='status';status.textContent='Vérification du compte…';
   try{
     const requested=normalizeHandle(document.querySelector('#user-handle').value);
-    const profile=await api('app.bsky.actor.getProfile',{actor:requested});const handle=profile.handle.toLowerCase();
+    if(HANDLES.includes(requested))throw new Error('Ce compte est déjà dans la liste.');
+    let profile=null;try{profile=await api('app.bsky.actor.getProfile',{actor:requested});}catch{}
+    const handle=profile?.handle?.toLowerCase()||requested;
     if(HANDLES.includes(handle))throw new Error('Ce compte est déjà dans la liste.');
     HANDLES.push(handle);const section=createAccount(handle),saved=saveHandles();renderUsers();document.querySelector('#user-handle').value='';
-    status.textContent=`@${handle} ajouté.`+(saved?'':' La liste ne peut pas être enregistrée dans ce navigateur.');
-    await loadAccount(handle,section,getDays());
+    status.textContent=`@${handle} ajouté.`+(profile?'':' Compte introuvable ou temporairement indisponible : il reste enregistré et sera revérifié à l’actualisation.')+(saved?'':' La liste ne peut pas être enregistrée dans ce navigateur.');
+    if(profile)await loadAccount(handle,section,getDays());
+    else{latestFollowed.set(handle,{error:true});renderFollowedLatest();section.querySelector('.status').className='status unavailable-status';section.querySelector('.status').textContent='⊘ Indisponible';}
   }catch(error){status.className='status error';status.textContent=error.message;}
   finally{fields.disabled=false;refreshButton.disabled=false;document.querySelector('#period-fields').disabled=false;}
 });
@@ -970,7 +1063,7 @@ async function loadAccount(handle, section, days, todayOnly=false) {
     if(wasOpen)statistics.open=true;
     if(handle===primaryHandle)renderToday(posts,days[days.length-1],parentAuthors,recentPosts,loadWeekly);
     status.textContent='Actualisé à '+new Date().toLocaleTimeString('fr-FR',{timeZone:'Europe/Paris',hour:'2-digit',minute:'2-digit'})+' · heure de Paris';
-  }catch(error){if(!todayOnly&&!latestFollowed.get(handle)?.post){latestFollowed.set(handle,{error:true});renderFollowedLatest();}if(handle===primaryHandle&&!document.querySelector('#primary-today').querySelector('.stats'))document.querySelector('#primary-today').textContent='Impossible de charger les compteurs : '+error.message;status.className='status error';status.textContent=error.name==='TimeoutError'?'Publications indisponibles : Bluesky met trop de temps à répondre.':'Publications indisponibles : '+error.message;status.insertAdjacentHTML('beforeend',retryButton());}
+  }catch(error){if(!todayOnly&&!latestFollowed.get(handle)?.post){latestFollowed.set(handle,{error:true});renderFollowedLatest();}if(handle===primaryHandle&&!document.querySelector('#primary-today').querySelector('.stats'))document.querySelector('#primary-today').textContent='Impossible de charger les compteurs : '+error.message;status.className='status unavailable-status';status.textContent='⊘ Indisponible';}
 }
 function alignRankings(section){
  const columns=section.querySelector('.interactions-details .columns');if(!columns)return;
