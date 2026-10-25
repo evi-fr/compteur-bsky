@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SUIVI BSKY</title><meta name="app-version" content="65a6acc01254d265"><link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGNsYXNzPSJibHVlc2t5LWxvZ28iIHZpZXdCb3g9IjAgMCA2MDAgNTMwIiBhcmlhLWhpZGRlbj0idHJ1ZSIgZm9jdXNhYmxlPSJmYWxzZSI+PHBhdGggZmlsbD0iI2Y5NzMxNiIgZD0iTTEzNS43MiA0NC4wM0MyMDIuMjIgOTMuOTUgMjczLjc1IDE5NS4xNyAzMDAgMjQ5LjVjMjYuMjUtNTQuMzMgOTcuNzgtMTU1LjU1IDE2NC4yOC0yMDUuNDdDNTEyLjI2IDguMDEgNTkwLTE5Ljg2IDU5MCA2OC44MWMwIDE3LjcxLTEwLjE1IDE0OC43OS0xNi4xMSAxNzAuMDctMjAuNyA3My45NS05Ni4xNCA5Mi44MS0xNjMuMjQgODEuNCAxMTcuMjkgMTkuOTUgMTQ3LjEzIDg2LjAyIDgyLjY5IDE1Mi4wOS0xMjIuMzkgMTI1LjQ5LTE3NS45MS0zMS40OS0xODkuNjQtNzEuNzEtMi41MS03LjM3LTMuNjktMTAuODEtMy43LTcuODktLjAxLTIuOTItMS4xOS41Mi0zLjcgNy44OS0xMy43MyA0MC4yMi02Ny4yNSAxOTcuMi0xODkuNjQgNzEuNzEtNjQuNDQtNjYuMDctMzQuNi0xMzIuMTQgODIuNjktMTUyLjA5LTY3LjEgMTEuNDEtMTQyLjU0LTcuNDUtMTYzLjI0LTgxLjRDMjAuMTUgMjE3LjYgMTAgODYuNTIgMTAgNjguODEgMTAtMTkuODYgODcuNzQgOC4wMSAxMzUuNzIgNDQuMDNaIi8+PC9zdmc+">
+<html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SUIVI BSKY</title><meta name="app-version" content="6f658a329910ec7c"><link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGNsYXNzPSJibHVlc2t5LWxvZ28iIHZpZXdCb3g9IjAgMCA2MDAgNTMwIiBhcmlhLWhpZGRlbj0idHJ1ZSIgZm9jdXNhYmxlPSJmYWxzZSI+PHBhdGggZmlsbD0iI2Y5NzMxNiIgZD0iTTEzNS43MiA0NC4wM0MyMDIuMjIgOTMuOTUgMjczLjc1IDE5NS4xNyAzMDAgMjQ5LjVjMjYuMjUtNTQuMzMgOTcuNzgtMTU1LjU1IDE2NC4yOC0yMDUuNDdDNTEyLjI2IDguMDEgNTkwLTE5Ljg2IDU5MCA2OC44MWMwIDE3LjcxLTEwLjE1IDE0OC43OS0xNi4xMSAxNzAuMDctMjAuNyA3My45NS05Ni4xNCA5Mi44MS0xNjMuMjQgODEuNCAxMTcuMjkgMTkuOTUgMTQ3LjEzIDg2LjAyIDgyLjY5IDE1Mi4wOS0xMjIuMzkgMTI1LjQ5LTE3NS45MS0zMS40OS0xODkuNjQtNzEuNzEtMi41MS03LjM3LTMuNjktMTAuODEtMy43LTcuODktLjAxLTIuOTItMS4xOS41Mi0zLjcgNy44OS0xMy43MyA0MC4yMi02Ny4yNSAxOTcuMi0xODkuNjQgNzEuNzEtNjQuNDQtNjYuMDctMzQuNi0xMzIuMTQgODIuNjktMTUyLjA5LTY3LjEgMTEuNDEtMTQyLjU0LTcuNDUtMTYzLjI0LTgxLjRDMjAuMTUgMjE3LjYgMTAgODYuNTIgMTAgNjguODEgMTAtMTkuODYgODcuNzQgOC4wMSAxMzUuNzIgNDQuMDNaIi8+PC9zdmc+">
 <style>
 :root { font-family: Inter,system-ui,sans-serif; color: #183247; background: #faf7f0; }
 * { box-sizing: border-box; }
@@ -645,7 +645,9 @@ function syncAccountOrder(handles){
   if(host.children[index]!==section)host.insertBefore(section,host.children[index]||null);
  });
 }
+let followedRenderDeferred=false;
 function renderFollowedLatest(){
+ if(followedRenderDeferred)return;
  updateManagedAvailability();
  for(const id of ['#latest-followed-title','#manage-title'])document.querySelector(id).textContent='Comptes suivis ('+HANDLES.length+')';
  const host=document.querySelector('#latest-followed');
@@ -1144,13 +1146,17 @@ async function refresh(){
  const dateLabel=day=>new Date(day+'T12:00:00Z').toLocaleDateString('fr-FR',{timeZone:'Europe/Paris'});
  document.querySelector('#period').textContent='Du '+dateLabel(days[0])+' au '+dateLabel(days[days.length-1])+' · heure de Paris';
  try{
+  followedRenderDeferred=true;
   await Promise.all(HANDLES.map(loadFollowedSummary));
+  followedRenderDeferred=false;renderFollowedLatest();
+  followedRenderDeferred=true;
   await new Promise(resolve=>requestAnimationFrame(()=>setTimeout(resolve,0)));
   const tasks=HANDLES.map(handle=>loadAccount(handle,containers.get(handle),days));
   if(primaryHandle&&!HANDLES.includes(primaryHandle))tasks.push(loadTodayOnly());
   await Promise.all(tasks);
   lastRefreshAt=Date.now();
  }finally{
+  followedRenderDeferred=false;renderFollowedLatest();
   updateRefreshAge();button.disabled=false;
   fields.forEach(field=>{field.disabled=false;});
  }
