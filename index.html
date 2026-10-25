@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SUIVI BSKY</title><meta name="app-version" content="6f658a329910ec7c"><link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGNsYXNzPSJibHVlc2t5LWxvZ28iIHZpZXdCb3g9IjAgMCA2MDAgNTMwIiBhcmlhLWhpZGRlbj0idHJ1ZSIgZm9jdXNhYmxlPSJmYWxzZSI+PHBhdGggZmlsbD0iI2Y5NzMxNiIgZD0iTTEzNS43MiA0NC4wM0MyMDIuMjIgOTMuOTUgMjczLjc1IDE5NS4xNyAzMDAgMjQ5LjVjMjYuMjUtNTQuMzMgOTcuNzgtMTU1LjU1IDE2NC4yOC0yMDUuNDdDNTEyLjI2IDguMDEgNTkwLTE5Ljg2IDU5MCA2OC44MWMwIDE3LjcxLTEwLjE1IDE0OC43OS0xNi4xMSAxNzAuMDctMjAuNyA3My45NS05Ni4xNCA5Mi44MS0xNjMuMjQgODEuNCAxMTcuMjkgMTkuOTUgMTQ3LjEzIDg2LjAyIDgyLjY5IDE1Mi4wOS0xMjIuMzkgMTI1LjQ5LTE3NS45MS0zMS40OS0xODkuNjQtNzEuNzEtMi41MS03LjM3LTMuNjktMTAuODEtMy43LTcuODktLjAxLTIuOTItMS4xOS41Mi0zLjcgNy44OS0xMy43MyA0MC4yMi02Ny4yNSAxOTcuMi0xODkuNjQgNzEuNzEtNjQuNDQtNjYuMDctMzQuNi0xMzIuMTQgODIuNjktMTUyLjA5LTY3LjEgMTEuNDEtMTQyLjU0LTcuNDUtMTYzLjI0LTgxLjRDMjAuMTUgMjE3LjYgMTAgODYuNTIgMTAgNjguODEgMTAtMTkuODYgODcuNzQgOC4wMSAxMzUuNzIgNDQuMDNaIi8+PC9zdmc+">
+<html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SUIVI BSKY</title><meta name="app-version" content="c7f8721f66aeac84"><link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGNsYXNzPSJibHVlc2t5LWxvZ28iIHZpZXdCb3g9IjAgMCA2MDAgNTMwIiBhcmlhLWhpZGRlbj0idHJ1ZSIgZm9jdXNhYmxlPSJmYWxzZSI+PHBhdGggZmlsbD0iI2Y5NzMxNiIgZD0iTTEzNS43MiA0NC4wM0MyMDIuMjIgOTMuOTUgMjczLjc1IDE5NS4xNyAzMDAgMjQ5LjVjMjYuMjUtNTQuMzMgOTcuNzgtMTU1LjU1IDE2NC4yOC0yMDUuNDdDNTEyLjI2IDguMDEgNTkwLTE5Ljg2IDU5MCA2OC44MWMwIDE3LjcxLTEwLjE1IDE0OC43OS0xNi4xMSAxNzAuMDctMjAuNyA3My45NS05Ni4xNCA5Mi44MS0xNjMuMjQgODEuNCAxMTcuMjkgMTkuOTUgMTQ3LjEzIDg2LjAyIDgyLjY5IDE1Mi4wOS0xMjIuMzkgMTI1LjQ5LTE3NS45MS0zMS40OS0xODkuNjQtNzEuNzEtMi41MS03LjM3LTMuNjktMTAuODEtMy43LTcuODktLjAxLTIuOTItMS4xOS41Mi0zLjcgNy44OS0xMy43MyA0MC4yMi02Ny4yNSAxOTcuMi0xODkuNjQgNzEuNzEtNjQuNDQtNjYuMDctMzQuNi0xMzIuMTQgODIuNjktMTUyLjA5LTY3LjEgMTEuNDEtMTQyLjU0LTcuNDUtMTYzLjI0LTgxLjRDMjAuMTUgMjE3LjYgMTAgODYuNTIgMTAgNjguODEgMTAtMTkuODYgODcuNzQgOC4wMSAxMzUuNzIgNDQuMDNaIi8+PC9zdmc+">
 <style>
 :root { font-family: Inter,system-ui,sans-serif; color: #183247; background: #faf7f0; }
 * { box-sizing: border-box; }
@@ -308,8 +308,9 @@ a { color: var(--reading-link); }
 .site-title-line{display:inline-flex;align-items:baseline;gap:10px;white-space:nowrap}
 .refresh-controls{align-items:flex-end}.refresh-controls .note{text-align:right;max-width:none}.refresh-controls #refresh-progress{align-self:flex-end}
 @media(max-width:700px){.refresh-controls{align-items:center}.refresh-controls .note{text-align:right}.refresh-controls #refresh-progress{justify-self:end}}
+.account-transfer{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:14px 0}.account-transfer button,.import-accounts-label{font:inherit;font-size:12px;padding:8px 12px;border:0;border-radius:8px;background:#edf1f4;color:#31475a;cursor:pointer}.import-accounts-label{position:relative;overflow:hidden}.import-accounts-label input{position:absolute;inset:0;opacity:0;width:100%;cursor:pointer}.import-accounts-label:focus-within{outline:2px solid #c76d3c;outline-offset:2px}
 </style>
-<main id="page-top"><nav class="page-navigation" aria-label="Navigation dans la page"><a href="#page-bottom">Bas de page ↓</a></nav><header><div><div class="eyebrow"><svg class="bluesky-logo" viewBox="0 0 600 530" aria-hidden="true" focusable="false"><path fill="#c76d3c" d="M135.72 44.03C202.22 93.95 273.75 195.17 300 249.5c26.25-54.33 97.78-155.55 164.28-205.47C512.26 8.01 590-19.86 590 68.81c0 17.71-10.15 148.79-16.11 170.07-20.7 73.95-96.14 92.81-163.24 81.4 117.29 19.95 147.13 86.02 82.69 152.09-122.39 125.49-175.91-31.49-189.64-71.71-2.51-7.37-3.69-10.81-3.7-7.89-.01-2.92-1.19.52-3.7 7.89-13.73 40.22-67.25 197.2-189.64 71.71-64.44-66.07-34.6-132.14 82.69-152.09-67.1 11.41-142.54-7.45-163.24-81.4C20.15 217.6 10 86.52 10 68.81 10-19.86 87.74 8.01 135.72 44.03Z"/></svg><span class="site-title-line"><span>SUIVI BSKY</span><small id="site-version" class="site-version"></small></span></div><p id="period"></p></div><div class="refresh-controls"><button id="refresh" aria-label="Actualiser" title="Actualiser"><svg class="refresh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7v5h-5"/><path d="M20 12a8 8 0 1 0-2.3 5.7"/></svg><span>Actualiser</span></button><p id="refresh-age" class="note" role="status">Actualisation en cours…</p><p id="refresh-countdown" class="note"></p><progress id="refresh-progress" max="100" value="0" aria-label="Temps écoulé avant la prochaine actualisation automatique"></progress></div></header><nav class="mobile-navigation" aria-label="Accès rapide"><a href="#latest-followed-section">Fil suivi</a><a href="#manage-section">Comptes</a><a href="#settings-section">Période</a></nav><div class="reading-controls"><button id="toggle-reactions" type="button" aria-pressed="false">Masquer les réactions</button></div><section class="account" aria-labelledby="today-title"><h2 id="today-title">Aujourd’hui</h2><p class="note">Journée en cours · republications exclues</p><div id="primary-today" role="status" aria-live="polite">Chargement…</div></section><section id="latest-followed-section" class="account" aria-labelledby="latest-followed-title"><h2 id="latest-followed-title">Comptes suivis</h2><div id="latest-followed"></div></section><div id="accounts"></div><footer><p class="note">Publications originales et réponses incluses · Republications exclues · Jours calendaires en heure de Paris, aujourd’hui inclus (journée en cours).</p><details><summary>Comment le classement est-il calculé ?</summary><p>Les classements comptent une réponse seulement si tous ses messages parents, jusqu’au publication originale, sont écrits par l’auteur de la publication originale. Les prolongements de son propre fil sont inclus. Dès qu’un autre auteur intervient dans une branche, toutes les réponses suivantes de cette branche sont exclues. Les réponses à soi-même sont exclues. Chaque réponse admissible compte une fois ; plusieurs branches indépendantes peuvent donc compter pour la même personne. Le classement reçu porte sur les messages du compte et les réponses publiés pendant la période. Le classement envoyé porte sur ses réponses publiées pendant la période, même si les messages parents sont plus anciens. Si un parent est inaccessible, la réponse est exclue et le classement est signalé comme partiel.</p></details><p class="note">Données publiques · cache temporaire de 2 minutes (profils : 10 minutes). « Actualiser » force une nouvelle lecture depuis Bluesky. Aucun accès à ton compte n’est nécessaire.</p></footer><section id="manage-section" class="account" aria-labelledby="manage-title"><h2 id="manage-title">Comptes suivis</h2><p class="note">Ajoute un identifiant court, un identifiant complet ou un lien de profil Bluesky. La liste est enregistrée dans ce navigateur. Les comptes et leurs détails sont affichés du dernier message le plus récent au plus ancien.</p><fieldset id="manage-fields"><form id="add-user" class="manage-form"><input id="user-handle" aria-label="Compte Bluesky" placeholder="exemple.bsky.social" required autocomplete="off" autocapitalize="none" spellcheck="false"><button type="submit" id="add-button">Ajouter</button></form><ul id="user-list" class="user-list"></ul></fieldset><p id="manage-status" class="status" role="status" aria-live="polite"></p></section><section id="settings-section" class="account" aria-labelledby="settings-title"><h2 id="settings-title">Période d’analyse</h2><form id="period-form" class="manage-form"><fieldset id="period-fields" class="manage-form"><label for="period-days">Nombre de jours (aujourd’hui inclus)</label><input id="period-days" type="number" min="1" max="90" step="1" required value="10"><button type="submit">Appliquer</button></fieldset></form><p class="note">De 1 à 90 jours. Ce réglage s’applique à tous les comptes, tableaux et classements. Les compteurs « aujourd’hui » restent sur la journée en cours. Une période longue peut prendre davantage de temps à charger.</p><p id="period-status" class="status" role="status" aria-live="polite"></p></section><nav id="page-bottom" class="page-navigation" aria-label="Navigation dans la page"><a href="#page-top">Haut de page ↑</a></nav></main>
+<main id="page-top"><nav class="page-navigation" aria-label="Navigation dans la page"><a href="#page-bottom">Bas de page ↓</a></nav><header><div><div class="eyebrow"><svg class="bluesky-logo" viewBox="0 0 600 530" aria-hidden="true" focusable="false"><path fill="#c76d3c" d="M135.72 44.03C202.22 93.95 273.75 195.17 300 249.5c26.25-54.33 97.78-155.55 164.28-205.47C512.26 8.01 590-19.86 590 68.81c0 17.71-10.15 148.79-16.11 170.07-20.7 73.95-96.14 92.81-163.24 81.4 117.29 19.95 147.13 86.02 82.69 152.09-122.39 125.49-175.91-31.49-189.64-71.71-2.51-7.37-3.69-10.81-3.7-7.89-.01-2.92-1.19.52-3.7 7.89-13.73 40.22-67.25 197.2-189.64 71.71-64.44-66.07-34.6-132.14 82.69-152.09-67.1 11.41-142.54-7.45-163.24-81.4C20.15 217.6 10 86.52 10 68.81 10-19.86 87.74 8.01 135.72 44.03Z"/></svg><span class="site-title-line"><span>SUIVI BSKY</span><small id="site-version" class="site-version"></small></span></div><p id="period"></p></div><div class="refresh-controls"><button id="refresh" aria-label="Actualiser" title="Actualiser"><svg class="refresh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7v5h-5"/><path d="M20 12a8 8 0 1 0-2.3 5.7"/></svg><span>Actualiser</span></button><p id="refresh-age" class="note" role="status">Actualisation en cours…</p><p id="refresh-countdown" class="note"></p><progress id="refresh-progress" max="100" value="0" aria-label="Temps écoulé avant la prochaine actualisation automatique"></progress></div></header><nav class="mobile-navigation" aria-label="Accès rapide"><a href="#latest-followed-section">Fil suivi</a><a href="#manage-section">Comptes</a><a href="#settings-section">Période</a></nav><div class="reading-controls"><button id="toggle-reactions" type="button" aria-pressed="false">Masquer les réactions</button></div><section class="account" aria-labelledby="today-title"><h2 id="today-title">Aujourd’hui</h2><p class="note">Journée en cours · republications exclues</p><div id="primary-today" role="status" aria-live="polite">Chargement…</div></section><section id="latest-followed-section" class="account" aria-labelledby="latest-followed-title"><h2 id="latest-followed-title">Comptes suivis</h2><div id="latest-followed"></div></section><div id="accounts"></div><footer><p class="note">Publications originales et réponses incluses · Republications exclues · Jours calendaires en heure de Paris, aujourd’hui inclus (journée en cours).</p><details><summary>Comment le classement est-il calculé ?</summary><p>Les classements comptent une réponse seulement si tous ses messages parents, jusqu’au publication originale, sont écrits par l’auteur de la publication originale. Les prolongements de son propre fil sont inclus. Dès qu’un autre auteur intervient dans une branche, toutes les réponses suivantes de cette branche sont exclues. Les réponses à soi-même sont exclues. Chaque réponse admissible compte une fois ; plusieurs branches indépendantes peuvent donc compter pour la même personne. Le classement reçu porte sur les messages du compte et les réponses publiés pendant la période. Le classement envoyé porte sur ses réponses publiées pendant la période, même si les messages parents sont plus anciens. Si un parent est inaccessible, la réponse est exclue et le classement est signalé comme partiel.</p></details><p class="note">Données publiques · cache temporaire de 2 minutes (profils : 10 minutes). « Actualiser » force une nouvelle lecture depuis Bluesky. Aucun accès à ton compte n’est nécessaire.</p></footer><section id="manage-section" class="account" aria-labelledby="manage-title"><h2 id="manage-title">Comptes suivis</h2><p class="note">Ajoute un identifiant court, un identifiant complet ou un lien de profil Bluesky. La liste est enregistrée dans ce navigateur. Les comptes et leurs détails sont affichés du dernier message le plus récent au plus ancien.</p><fieldset id="manage-fields"><form id="add-user" class="manage-form"><input id="user-handle" aria-label="Compte Bluesky" placeholder="exemple.bsky.social" required autocomplete="off" autocapitalize="none" spellcheck="false"><button type="submit" id="add-button">Ajouter</button></form><div class="account-transfer"><button type="button" id="export-accounts">Exporter la liste</button><label class="import-accounts-label" for="import-accounts">Importer une liste<input type="file" id="import-accounts" accept=".json,application/json"></label></div><ul id="user-list" class="user-list"></ul></fieldset><p id="manage-status" class="status" role="status" aria-live="polite"></p></section><section id="settings-section" class="account" aria-labelledby="settings-title"><h2 id="settings-title">Période d’analyse</h2><form id="period-form" class="manage-form"><fieldset id="period-fields" class="manage-form"><label for="period-days">Nombre de jours (aujourd’hui inclus)</label><input id="period-days" type="number" min="1" max="90" step="1" required value="10"><button type="submit">Appliquer</button></fieldset></form><p class="note">De 1 à 90 jours. Ce réglage s’applique à tous les comptes, tableaux et classements. Les compteurs « aujourd’hui » restent sur la journée en cours. Une période longue peut prendre davantage de temps à charger.</p><p id="period-status" class="status" role="status" aria-live="polite"></p></section><nav id="page-bottom" class="page-navigation" aria-label="Navigation dans la page"><a href="#page-top">Haut de page ↑</a></nav></main>
 <script>const REACTIONS_KEY='suivi-bluesky-hide-reactions-v1';
 let reactionsHidden=false;
 try{reactionsHidden=localStorage.getItem(REACTIONS_KEY)==='true';}catch{}
@@ -728,6 +729,30 @@ function normalizeHandle(value){
   if(!/^[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?\.[a-z]{2,}$/.test(handle))throw new Error('Cet identifiant Bluesky ne semble pas valide.');
   return handle;
 }
+function parseAccountImport(text){
+ const data=JSON.parse(text),list=Array.isArray(data)?data:data?.comptes;
+ if(!Array.isArray(list)||list.some(value=>typeof value!=='string'))throw new Error('Le fichier doit contenir une liste de comptes au format JSON.');
+ return [...new Set(list.map(normalizeHandle))];
+}
+document.querySelector('#export-accounts').addEventListener('click',()=>{
+ const data=JSON.stringify({version:1,comptes:[...HANDLES]},null,2);
+ const url=URL.createObjectURL(new Blob([data],{type:'application/json'}));
+ const link=document.createElement('a');link.href=url;link.download='suivi-bsky-comptes.json';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ const status=document.querySelector('#manage-status');status.className='status';status.textContent='Liste exportée : '+HANDLES.length+' compte(s).';
+});
+document.querySelector('#import-accounts').addEventListener('change',async event=>{
+ const input=event.target,file=input.files?.[0];if(!file)return;
+ const status=document.querySelector('#manage-status');
+ try{
+  if(file.size>1024*1024)throw new Error('Le fichier est trop volumineux (maximum 1 Mo).');
+  const imported=parseAccountImport(await file.text()),added=imported.filter(handle=>!HANDLES.includes(handle));
+  for(const handle of added){HANDLES.push(handle);createAccount(handle);}
+  const saved=saveHandles();renderUsers();status.className='status';
+  status.textContent=added.length+' compte(s) ajouté(s). Les comptes déjà présents sont conservés.'+(saved?'':' Enregistrement local impossible dans ce navigateur.');
+  if(added.length){clearDataCache();await refresh();}
+ }catch(error){status.className='status error';status.textContent='Import impossible : '+error.message;}
+ finally{input.value='';}
+});
 document.querySelector('#add-user').addEventListener('submit',async event=>{
   event.preventDefault();const status=document.querySelector('#manage-status'),fields=document.querySelector('#manage-fields'),refreshButton=document.querySelector('#refresh');
   fields.disabled=true;refreshButton.disabled=true;document.querySelector('#period-fields').disabled=true;status.className='status';status.textContent='Vérification du compte…';
@@ -841,7 +866,7 @@ function bindWeeklySummary(root,loadWeekly){
  details.addEventListener('toggle',load);
 }
 function renderToday(posts,today,parentAuthors=new Map(),recentPosts=posts,loadWeekly){
- const target=document.querySelector('#primary-today');target.innerHTML=renderActivitySummary(recentPosts,false);
+ const html=renderActivitySummary(recentPosts,false);commitPageUpdate(()=>{document.querySelector('#primary-today').innerHTML=html;});
 }
 async function loadTodayOnly(){
   // Reuse the same complete pagination when the primary account is absent from the followed list.
@@ -945,13 +970,17 @@ async function loadFollowedSummary(handle){
 function renderRecentPublications(posts,parentAuthors=new Map(),title='Toutes les publications aujourd’hui',emptyMessage='Aucune publication accessible.'){
  return '<h3>'+escape(title)+' ('+posts.length+')</h3>'+(posts.length?'<ul class="recent-publications">'+posts.map(post=>'<li>'+renderPublication(post,parentAuthors.get(post.record.reply?.parent?.uri))+'</li>').join('')+'</ul>':'<p class="note">'+escape(emptyMessage)+'</p>');
 }
+let pendingPageUpdates=null;
+function commitPageUpdate(update){if(pendingPageUpdates)pendingPageUpdates.push(update);else update();}
 async function loadAccount(handle, section, days, todayOnly=false) {
-  const displayedContent=section.querySelector('.content'),status=section.querySelector('.status');
+  const displayedContent=section.querySelector('.content'),visibleStatus=section.querySelector('.status'),status=pendingPageUpdates?document.createElement('div'):visibleStatus;
+  if(pendingPageUpdates)commitPageUpdate(()=>{visibleStatus.className=status.className;visibleStatus.replaceChildren(...status.childNodes);});
   const content=document.createElement('div');
   status.className='status';status.textContent='Chargement des publications…';
   if(!todayOnly&&!latestFollowed.get(handle)?.post){latestFollowed.set(handle,{loading:true});renderFollowedLatest();}
   try {
     const profile = await api('app.bsky.actor.getProfile',{actor:handle});
+    commitPageUpdate(()=>{
     section.querySelector('h2').classList.add('user-heading');
     section.querySelector('h2').innerHTML=renderAvatar(profile.avatar)+'<span>'+escape(profile.displayName||profile.handle)+'</span>';
     if(handle===primaryHandle){
@@ -970,6 +999,7 @@ async function loadAccount(handle, section, days, todayOnly=false) {
       ? 'Compte créé le '+createdAt.toLocaleDateString('fr-FR',{timeZone:'Europe/Paris',day:'numeric',month:'long',year:'numeric'})
       : 'Date de création non disponible.';
 
+    });
     const weekStart=getWeekDays()[0];
     const fetchStart=days[0];
     let weekCovered=false;
@@ -1073,8 +1103,7 @@ async function loadAccount(handle, section, days, todayOnly=false) {
       }catch(error){statisticsState='idle';detailStatus.className='status error';detailStatus.textContent='Statistiques indisponibles : '+error.message+' Ferme puis rouvre « Voir plus » pour réessayer.';if(!detailStatus.parentNode)statistics.append(detailStatus);detailStatus.insertAdjacentHTML('beforeend',retryButton());}
     });
     const wasOpen=displayedContent.querySelector('.statistics-details')?.open;
-    displayedContent.replaceChildren(...content.childNodes);
-    if(wasOpen)statistics.open=true;
+    commitPageUpdate(()=>{displayedContent.replaceChildren(...content.childNodes);if(wasOpen)statistics.open=true;});
     if(handle===primaryHandle)renderToday(posts,days[days.length-1],parentAuthors,recentPosts,loadWeekly);
     status.textContent='Actualisé à '+new Date().toLocaleTimeString('fr-FR',{timeZone:'Europe/Paris',hour:'2-digit',minute:'2-digit'})+' · heure de Paris';
   }catch(error){if(!todayOnly&&!latestFollowed.get(handle)?.post){latestFollowed.set(handle,{error:true});renderFollowedLatest();}if(handle===primaryHandle&&!document.querySelector('#primary-today').querySelector('.stats'))document.querySelector('#primary-today').textContent='Impossible de charger les compteurs : '+error.message;status.className='status unavailable-status';status.textContent='⊘ Indisponible';}
@@ -1151,11 +1180,13 @@ async function refresh(){
   followedRenderDeferred=false;renderFollowedLatest();
   followedRenderDeferred=true;
   await new Promise(resolve=>requestAnimationFrame(()=>setTimeout(resolve,0)));
+  pendingPageUpdates=[];
   const tasks=HANDLES.map(handle=>loadAccount(handle,containers.get(handle),days));
   if(primaryHandle&&!HANDLES.includes(primaryHandle))tasks.push(loadTodayOnly());
   await Promise.all(tasks);
   lastRefreshAt=Date.now();
  }finally{
+  const updates=pendingPageUpdates;pendingPageUpdates=null;updates?.forEach(update=>update());
   followedRenderDeferred=false;renderFollowedLatest();
   updateRefreshAge();button.disabled=false;
   fields.forEach(field=>{field.disabled=false;});
