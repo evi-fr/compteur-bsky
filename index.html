@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Suivi BSKY</title><meta name="app-version" content="0017510fbd8cfe5f"><link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGNsYXNzPSJibHVlc2t5LWxvZ28iIHZpZXdCb3g9IjAgMCA2MDAgNTMwIiBhcmlhLWhpZGRlbj0idHJ1ZSIgZm9jdXNhYmxlPSJmYWxzZSI+PHBhdGggZmlsbD0iI2Y5NzMxNiIgZD0iTTEzNS43MiA0NC4wM0MyMDIuMjIgOTMuOTUgMjczLjc1IDE5NS4xNyAzMDAgMjQ5LjVjMjYuMjUtNTQuMzMgOTcuNzgtMTU1LjU1IDE2NC4yOC0yMDUuNDdDNTEyLjI2IDguMDEgNTkwLTE5Ljg2IDU5MCA2OC44MWMwIDE3LjcxLTEwLjE1IDE0OC43OS0xNi4xMSAxNzAuMDctMjAuNyA3My45NS05Ni4xNCA5Mi44MS0xNjMuMjQgODEuNCAxMTcuMjkgMTkuOTUgMTQ3LjEzIDg2LjAyIDgyLjY5IDE1Mi4wOS0xMjIuMzkgMTI1LjQ5LTE3NS45MS0zMS40OS0xODkuNjQtNzEuNzEtMi41MS03LjM3LTMuNjktMTAuODEtMy43LTcuODktLjAxLTIuOTItMS4xOS41Mi0zLjcgNy44OS0xMy43MyA0MC4yMi02Ny4yNSAxOTcuMi0xODkuNjQgNzEuNzEtNjQuNDQtNjYuMDctMzQuNi0xMzIuMTQgODIuNjktMTUyLjA5LTY3LjEgMTEuNDEtMTQyLjU0LTcuNDUtMTYzLjI0LTgxLjRDMjAuMTUgMjE3LjYgMTAgODYuNTIgMTAgNjguODEgMTAtMTkuODYgODcuNzQgOC4wMSAxMzUuNzIgNDQuMDNaIi8+PC9zdmc+">
+<html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Suivi BSKY</title><meta name="app-version" content="607ee62a2f0a23b9"><link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGNsYXNzPSJibHVlc2t5LWxvZ28iIHZpZXdCb3g9IjAgMCA2MDAgNTMwIiBhcmlhLWhpZGRlbj0idHJ1ZSIgZm9jdXNhYmxlPSJmYWxzZSI+PHBhdGggZmlsbD0iI2Y5NzMxNiIgZD0iTTEzNS43MiA0NC4wM0MyMDIuMjIgOTMuOTUgMjczLjc1IDE5NS4xNyAzMDAgMjQ5LjVjMjYuMjUtNTQuMzMgOTcuNzgtMTU1LjU1IDE2NC4yOC0yMDUuNDdDNTEyLjI2IDguMDEgNTkwLTE5Ljg2IDU5MCA2OC44MWMwIDE3LjcxLTEwLjE1IDE0OC43OS0xNi4xMSAxNzAuMDctMjAuNyA3My45NS05Ni4xNCA5Mi44MS0xNjMuMjQgODEuNCAxMTcuMjkgMTkuOTUgMTQ3LjEzIDg2LjAyIDgyLjY5IDE1Mi4wOS0xMjIuMzkgMTI1LjQ5LTE3NS45MS0zMS40OS0xODkuNjQtNzEuNzEtMi41MS03LjM3LTMuNjktMTAuODEtMy43LTcuODktLjAxLTIuOTItMS4xOS41Mi0zLjcgNy44OS0xMy43MyA0MC4yMi02Ny4yNSAxOTcuMi0xODkuNjQgNzEuNzEtNjQuNDQtNjYuMDctMzQuNi0xMzIuMTQgODIuNjktMTUyLjA5LTY3LjEgMTEuNDEtMTQyLjU0LTcuNDUtMTYzLjI0LTgxLjRDMjAuMTUgMjE3LjYgMTAgODYuNTIgMTAgNjguODEgMTAtMTkuODYgODcuNzQgOC4wMSAxMzUuNzIgNDQuMDNaIi8+PC9zdmc+">
 <style>
 :root { font-family: Inter,system-ui,sans-serif; color: #183247; background: #eef3f6; }
 * { box-sizing: border-box; }
@@ -579,11 +579,11 @@ function collectAuthorThread(node,did){
  walk(node);
  return [...ancestors,...posts].sort((a,b)=>Date.parse(a.record.createdAt)-Date.parse(b.record.createdAt));
 }
-function renderReadingPost(post){
+function renderReadingPost(post,showOriginal=false){
  const author=post.author,handle=author.handle||author.did;
  const minutes=Math.max(0,Math.floor((Date.now()-Date.parse(post.record.createdAt))/60000));
  const elapsed=Number.isFinite(minutes)?' <span class="elapsed-time" data-published-at="'+escape(post.record.createdAt)+'">(il y a '+formatElapsed(minutes)+')</span>':'';
- return '<article class="reading-post"><strong>'+escape(author.displayName||handle)+'</strong> <span class="note">(@'+escape(handle)+') · '+escape(formatPublicationDate(post.record.createdAt))+elapsed+'</span><div class="reading-text">'+escape(post.record.text||'(Publication sans texte)')+'</div>'+renderAssociatedContent(post)+renderReadingTools({...post,replyCount:0,record:{...post.record,reply:undefined}})+'</article>';
+ return '<article class="reading-post">'+(showOriginal&&!post.record.reply?'<span class="original-publication-badge">Publication originale</span>':'')+'<strong>'+escape(author.displayName||handle)+'</strong> <span class="note">(@'+escape(handle)+') · '+escape(formatPublicationDate(post.record.createdAt))+elapsed+'</span><div class="reading-text">'+escape(post.record.text||'(Publication sans texte)')+'</div>'+renderAssociatedContent(post)+renderReadingTools({...post,replyCount:0,record:{...post.record,reply:undefined}})+'</article>';
 }
 document.addEventListener('toggle',async event=>{
  const detail=event.target;if(!detail.open)return;
@@ -596,7 +596,7 @@ document.addEventListener('toggle',async event=>{
   const verified=isThread?verifiedReadingThreads.get(detail):null;
   const result=verified?null:await api('app.bsky.feed.getPostThread',{uri:detail.dataset.readingUri,depth:isThread?'10':'0',parentHeight:isThread?'100':'0'});
   const posts=verified||(isThread?collectAuthorThread(result.thread,detail.dataset.readingAuthor):(result.thread?.post?[result.thread.post]:[]));
-  panel.innerHTML=(!isThread?'<strong class="context-panel-title">Réponse à</strong>':'')+(posts.length?posts.map(renderReadingPost).join(''):'<p>Message supprimé ou inaccessible.</p>');
+  panel.innerHTML=(!isThread?'<strong class="context-panel-title">Réponse à</strong>':'')+(posts.length?posts.map(post=>renderReadingPost(post,!isThread)).join(''):'<p>Message supprimé ou inaccessible.</p>');
   if(isThread)panel.insertAdjacentHTML('beforeend','<p class="note">'+(posts.length===1?'Aucune autre publication de cet auteur dans le fil accessible.':'Fil dans l’ordre de lecture · seules les suites du même auteur sont affichées.')+' Les fils très longs peuvent être partiels.</p>');
   detail.dataset.loaded='true';
  }catch(error){delete detail.dataset.loaded;panel.textContent='Chargement impossible. Ferme puis rouvre pour réessayer.';}
