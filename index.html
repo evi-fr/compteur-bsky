@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Suivi BSKY</title><meta name="app-version" content="9d1c5eb3f3684eec"><link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGNsYXNzPSJibHVlc2t5LWxvZ28iIHZpZXdCb3g9IjAgMCA2MDAgNTMwIiBhcmlhLWhpZGRlbj0idHJ1ZSIgZm9jdXNhYmxlPSJmYWxzZSI+PHBhdGggZmlsbD0iI2Y5NzMxNiIgZD0iTTEzNS43MiA0NC4wM0MyMDIuMjIgOTMuOTUgMjczLjc1IDE5NS4xNyAzMDAgMjQ5LjVjMjYuMjUtNTQuMzMgOTcuNzgtMTU1LjU1IDE2NC4yOC0yMDUuNDdDNTEyLjI2IDguMDEgNTkwLTE5Ljg2IDU5MCA2OC44MWMwIDE3LjcxLTEwLjE1IDE0OC43OS0xNi4xMSAxNzAuMDctMjAuNyA3My45NS05Ni4xNCA5Mi44MS0xNjMuMjQgODEuNCAxMTcuMjkgMTkuOTUgMTQ3LjEzIDg2LjAyIDgyLjY5IDE1Mi4wOS0xMjIuMzkgMTI1LjQ5LTE3NS45MS0zMS40OS0xODkuNjQtNzEuNzEtMi41MS03LjM3LTMuNjktMTAuODEtMy43LTcuODktLjAxLTIuOTItMS4xOS41Mi0zLjcgNy44OS0xMy43MyA0MC4yMi02Ny4yNSAxOTcuMi0xODkuNjQgNzEuNzEtNjQuNDQtNjYuMDctMzQuNi0xMzIuMTQgODIuNjktMTUyLjA5LTY3LjEgMTEuNDEtMTQyLjU0LTcuNDUtMTYzLjI0LTgxLjRDMjAuMTUgMjE3LjYgMTAgODYuNTIgMTAgNjguODEgMTAtMTkuODYgODcuNzQgOC4wMSAxMzUuNzIgNDQuMDNaIi8+PC9zdmc+">
+<html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Suivi BSKY</title><meta name="app-version" content="1502afd312b8abf5"><link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGNsYXNzPSJibHVlc2t5LWxvZ28iIHZpZXdCb3g9IjAgMCA2MDAgNTMwIiBhcmlhLWhpZGRlbj0idHJ1ZSIgZm9jdXNhYmxlPSJmYWxzZSI+PHBhdGggZmlsbD0iI2Y5NzMxNiIgZD0iTTEzNS43MiA0NC4wM0MyMDIuMjIgOTMuOTUgMjczLjc1IDE5NS4xNyAzMDAgMjQ5LjVjMjYuMjUtNTQuMzMgOTcuNzgtMTU1LjU1IDE2NC4yOC0yMDUuNDdDNTEyLjI2IDguMDEgNTkwLTE5Ljg2IDU5MCA2OC44MWMwIDE3LjcxLTEwLjE1IDE0OC43OS0xNi4xMSAxNzAuMDctMjAuNyA3My45NS05Ni4xNCA5Mi44MS0xNjMuMjQgODEuNCAxMTcuMjkgMTkuOTUgMTQ3LjEzIDg2LjAyIDgyLjY5IDE1Mi4wOS0xMjIuMzkgMTI1LjQ5LTE3NS45MS0zMS40OS0xODkuNjQtNzEuNzEtMi41MS03LjM3LTMuNjktMTAuODEtMy43LTcuODktLjAxLTIuOTItMS4xOS41Mi0zLjcgNy44OS0xMy43MyA0MC4yMi02Ny4yNSAxOTcuMi0xODkuNjQgNzEuNzEtNjQuNDQtNjYuMDctMzQuNi0xMzIuMTQgODIuNjktMTUyLjA5LTY3LjEgMTEuNDEtMTQyLjU0LTcuNDUtMTYzLjI0LTgxLjRDMjAuMTUgMjE3LjYgMTAgODYuNTIgMTAgNjguODEgMTAtMTkuODYgODcuNzQgOC4wMSAxMzUuNzIgNDQuMDNaIi8+PC9zdmc+">
 <style>
 :root { font-family: Inter,system-ui,sans-serif; color: #183247; background: #eef3f6; }
 * { box-sizing: border-box; }
@@ -888,7 +888,7 @@ setInterval(()=>{
   });
   document.querySelectorAll('.last-hour-publications').forEach(block=>{
     block.querySelectorAll('.recent-publications>li').forEach((item,index)=>{const time=item.querySelector('.publication-time .elapsed-time');if(time&&dateKey(time.dataset.publishedAt)!==dateKey(new Date()))item.remove();});
-    const title=block.querySelector('h3');if(title)title.textContent='Toutes les publications aujourd’hui ('+block.querySelectorAll('.recent-publications>li').length+')';
+    const title=block.querySelector('h3');if(title)title.textContent='Réponses aujourd’hui ('+block.querySelectorAll('.recent-publications>li').length+')';
   });
 },60000);
 function latestPublications(posts,now=Date.now()){
@@ -1073,7 +1073,7 @@ async function loadFollowedSummary(handle){
   }catch{latestFollowed.set(handle,{...latestFollowed.get(handle),loading:false,error:true});renderFollowedLatest();}
 }
 function renderEmptyState(message){return '<div class="empty-state"><span class="empty-state-mark" aria-hidden="true"></span><p>'+escape(message)+'</p></div>';}
-function renderRecentPublications(posts,parentAuthors=new Map(),title='Toutes les publications aujourd’hui',emptyMessage='Aucune publication aujourd’hui.'){
+function renderRecentPublications(posts,parentAuthors=new Map(),title='Réponses aujourd’hui',emptyMessage='Aucune réponse publiée aujourd’hui.'){
  return '<h3>'+escape(title)+' ('+posts.length+')</h3>'+(posts.length?'<ul class="recent-publications">'+posts.map(post=>'<li>'+renderPublication(post,parentAuthors.get(post.record.reply?.parent?.uri))+'</li>').join('')+'</ul>':renderEmptyState(emptyMessage));
 }
 let pendingPageUpdates=null;
@@ -1144,7 +1144,7 @@ async function loadAccount(handle, section, days, todayOnly=false) {
     }
     if(!todayOnly){latestFollowed.set(handle,{post:latestPost,replyAuthor:latestReplyAuthor,name:profile.displayName||profile.handle,avatar:profile.avatar,todayCount:[...posts.values()].filter(post=>dateKey(post.record.createdAt)===dateKey(new Date())).length});renderFollowedLatest();}
     if(todayOnly){renderToday(posts,days[days.length-1],parentAuthors,recentPosts,loadWeekly);return;}
-    const recent=latestPublications(recentPosts);
+    const recent=latestPublications(recentPosts).filter(post=>Boolean(post.record.reply));
     await resolveParentAuthors(recent,parentAuthors);
     const todayPosts=[...posts.values()].filter(post=>dateKey(post.record.createdAt)===days[days.length-1]);
 
